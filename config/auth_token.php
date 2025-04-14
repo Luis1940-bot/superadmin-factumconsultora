@@ -1,4 +1,4 @@
 <?php
 $token = 'luis15';
-$emailAdmin = 'luisglogista@gmail.com';
-$creadoEn = '2025-03-23';
+$emailAdmin = 'luis@factumconsultora.com';
+$creadoEn = '2025-04-14';

@@ -35,7 +35,7 @@ if ($jsonPathParam === null || $jsonPathParam === '' || $jsonPathParam === 'null
 } else {
   // 2. Si jsonPath tiene valor, es remoto
   $relative = str_replace('xxx', $id, $jsonPathParam);
-  $remoteJsonUrl = "https://factumconsultora.com/mccain{$relative}";
+  $remoteJsonUrl = "https://factumconsultora.com/scg-mccain{$relative}";
   $jsonData = @file_get_contents($remoteJsonUrl);
   $data = $jsonData ? json_decode($jsonData, true) : ['error' => 'No se pudo cargar JSON remoto.'];
   $jsonPathFinal = $remoteJsonUrl;

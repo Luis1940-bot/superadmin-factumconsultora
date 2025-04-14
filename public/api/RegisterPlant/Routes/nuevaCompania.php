@@ -74,7 +74,7 @@ function addCompania(array $objeto): array
       if ($checkStmt === false) {
         die("Error al preparar la consulta: " . $conn->error);
       }
-      $email = "luisglogista@gmail.com";
+      $email = "luis@factumconsultora.com";
       $checkStmt->bind_param("si", $email, $last_id);
       $checkStmt->execute();
       $result = $checkStmt->get_result();

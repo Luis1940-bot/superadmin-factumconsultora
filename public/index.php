@@ -6,7 +6,9 @@ $baseDir = BASE_DIR;
 
 require_once dirname(__DIR__) . '/config/auth_token.php';
 
-
+$favicon = BASE_URL . "/img/favicon.ico";
+$cssUrl = BASE_URL . "/css/hacker-style.css?v=" . time();
+$jsUrl = BASE_URL . "/js/hacker-login.js?v=" . time();
 // Si ya está logueado
 if (isset($_SESSION['superadmin_authenticated']) && $_SESSION['superadmin_authenticated'] === true) {
   // ¿Ya seleccionó cliente?
@@ -27,8 +29,8 @@ if (isset($_SESSION['superadmin_authenticated']) && $_SESSION['superadmin_authen
   <meta charset="UTF-8" />
   <title>SuperAdmin Access - Factum</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="css/hacker-style.css?v=<?= time(); ?>" />
-  <link rel='shortcut icon' type='image/x-icon' href='<?php echo $baseDir ?>/img/favicon.ico'>
+  <link rel="stylesheet" href="<?= $cssUrl ?>" nonce="<?= $nonce ?>">
+  <link rel="icon" href="<?= $favicon ?>" type="image/x-icon">
 </head>
 
 <body>

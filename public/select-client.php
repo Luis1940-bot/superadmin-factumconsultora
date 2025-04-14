@@ -40,7 +40,7 @@ if (!isset($_SESSION['superadmin_authenticated'])) {
 </head>
 
 <body>
-  <h2>Seleccioná un cliente</h2>
+  <h2>Seleccioná una planta</h2>
   <select id="clienteSelect">
     <option value="">-- Seleccioná --</option>
   </select>
@@ -50,7 +50,8 @@ if (!isset($_SESSION['superadmin_authenticated'])) {
     const select = document.getElementById('clienteSelect');
     const btn = document.getElementById('btnContinuar');
 
-    fetch('https://factumconsultora.com/mccain/models/log.json')
+    fetch('https://factumconsultora.com/scg-mccain/models/log.json')
+      // fetch("https://sadmin.factumconsultora.com/api/proxy.php?file=models/log.json")
       .then(res => res.json())
       .then(data => {
         data.plantas.forEach(p => {
@@ -66,7 +67,7 @@ if (!isset($_SESSION['superadmin_authenticated'])) {
       const name = select.options[select.selectedIndex].text;
 
       if (!id) {
-        alert('Seleccioná un cliente válido.');
+        alert('Seleccioná una planta válida.');
         return;
       }
 

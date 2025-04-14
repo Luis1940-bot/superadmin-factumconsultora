@@ -13,7 +13,7 @@ const getBaseUrl = () => {
     return 'https://sadmin.factumconsultora.com/';
   }
 
-  return 'https://factumconsultora.com/mccain';
+  return 'https://factumconsultora.com/scg-mccain';
 };
 
 // Exportar la función en lugar de una variable mutable

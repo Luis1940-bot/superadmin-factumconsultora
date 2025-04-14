@@ -29,15 +29,15 @@ array_walk_recursive($contenido, function (&$value) {
 
 
 // Verificar que sea una URL válida del dominio factumconsultora.com
-if (!preg_match('/^https:\/\/factumconsultora\.com\/mccain\/.+\.json$/', $ruta)) {
+if (!preg_match('/^https:\/\/factumconsultora\.com\/scg-mccain\/.+\.json$/', $ruta)) {
   http_response_code(403);
   echo json_encode(['success' => false, 'message' => 'URL no permitida']);
   exit;
 }
 
 // Armar POST hacia el API receptor remoto
-$apiUrl = 'https://factumconsultora.com/mccain/Routes/guardar_json_remoto.php';
-$archivoRelativo = str_replace('https://factumconsultora.com/mccain/', '', $ruta);
+$apiUrl = 'https://factumconsultora.com/scg-mccain/Routes/guardar_json_remoto.php';
+$archivoRelativo = str_replace('https://factumconsultora.com/scg-mccain/', '', $ruta);
 
 $ch = curl_init($apiUrl);
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
