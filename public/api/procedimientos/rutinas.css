@@ -1,0 +1,352 @@
+body {
+  background: #000;
+  color: #0f0;
+  font-family: 'Courier New', Courier, monospace;
+  padding: 2rem;
+  min-height: 100vh;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 2rem;
+}
+
+th,
+td {
+  border: 1px solid #0f0;
+  padding: 10px;
+  text-align: left;
+  word-break: break-word;
+}
+
+th {
+  background: #111;
+}
+
+.div-sadmin-buttons {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+button {
+  background-color: #111;
+  color: #0f0;
+  border: 1px solid #0f0;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  transition:
+    background 0.3s,
+    transform 0.1s;
+}
+
+button:hover {
+  background-color: #0f0;
+  color: #000;
+  transform: scale(1.05);
+}
+
+button:active {
+  background-color: #0a0;
+  transform: scale(0.98);
+}
+/* Botón ver */
+.btn-ver {
+  background-color: #111;
+  border: 1px solid #0f0;
+  color: #0f0;
+  padding: 6px 12px;
+  font-weight: bold;
+  border-radius: 5px;
+  text-decoration: none;
+  display: inline-block;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.btn-ver:hover {
+  background-color: #0f0;
+  color: #000;
+}
+.form-busqueda {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin: 2rem 0;
+  flex-wrap: wrap;
+}
+
+.form-busqueda input[type='text'] {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #0f0;
+  background: #000;
+  color: #0f0;
+  border-radius: 4px;
+  width: 300px;
+  max-width: 90%;
+}
+
+.form-busqueda button {
+  background-color: #111;
+  color: #0f0;
+  border: 1px solid #0f0;
+  padding: 10px 16px;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.form-busqueda button:hover {
+  background-color: #0f0;
+  color: #000;
+}
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 255, 0, 0.05);
+}
+
+.modal.show {
+  display: block;
+  animation: fadeInModal 0.4s ease-in-out;
+}
+
+@keyframes fadeInModal {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modal-content {
+  background-color: #000;
+  color: #0f0;
+  margin: 5% auto;
+  padding: 20px;
+  border: 2px solid #0f0;
+  width: 90%;
+  max-width: 600px;
+  border-radius: 6px;
+}
+
+.modal-content h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.modal-content table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.modal-content th,
+.modal-content td {
+  border: 1px solid #0f0;
+  padding: 8px;
+  text-align: left;
+}
+
+.close {
+  color: #0f0;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover {
+  color: #f00;
+}
+
+.btn-parametros {
+  background-color: #111;
+  color: #0f0;
+  border: 1px solid #0f0;
+  padding: 6px 12px;
+  font-size: 0.9rem;
+  border-radius: 5px;
+  margin-left: 4px;
+  cursor: pointer;
+}
+
+.btn-parametros:hover {
+  background-color: #0f0;
+  color: #000;
+}
+#filtroRutinas {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #0f0;
+  background: #000;
+  color: #0f0;
+  border-radius: 4px;
+  width: 300px;
+  max-width: 90%;
+  display: block;
+  margin: 2rem auto;
+}
+#testModalCuerpo label {
+  display: block;
+  margin-top: 1rem;
+}
+
+#testModalCuerpo input[type='text'] {
+  width: 100%;
+  padding: 8px;
+  background: #000;
+  border: 1px solid #0f0;
+  color: #0f0;
+}
+
+#testModalCuerpo button[type='submit'] {
+  margin-top: 1rem;
+  background: #111;
+  border: 1px solid #0f0;
+  color: #0f0;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-weight: bold;
+  border-radius: 4px;
+}
+
+#testModalCuerpo button[type='submit']:hover {
+  background: #0f0;
+  color: #000;
+}
+
+#formEjecutar {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+#formEjecutar label {
+  font-weight: bold;
+  color: #0f0;
+}
+
+#formEjecutar input[type='text'],
+#formEjecutar input[type='date'],
+#formEjecutar input[type='number'],
+#formEjecutar input[type='datetime-local'] {
+  width: 100%;
+  padding: 8px;
+  background: #000;
+  border: 1px solid #0f0;
+  color: #0f0;
+  border-radius: 4px;
+}
+
+#formEjecutar button {
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 4px;
+  font-weight: bold;
+  background-color: #111;
+  color: #0f0;
+  border: 1px solid #0f0;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+#formEjecutar button:hover {
+  background-color: #0f0;
+  color: #000;
+}
+
+#btnVerEnNuevaPestana {
+  background-color: #222;
+  border: 1px solid #0f0;
+  margin-top: 0.5rem;
+}
+
+#btnVerEnNuevaPestana:hover {
+  background-color: #0f0;
+  color: #000;
+}
+.form-botones {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-top: 1.2rem;
+}
+
+.form-botones button {
+  width: 100%;
+}
+.margen-top {
+  margin-top: 1rem;
+}
+
+/* Responsive para tabla */
+@media (max-width: 768px) {
+  table {
+    display: block;
+    overflow-x: auto;
+  }
+
+  .btn-ver {
+    font-size: 0.9rem;
+    padding: 8px 12px;
+    display: block;
+    margin: 4px auto;
+  }
+
+  .div-sadmin-buttons {
+    width: 100%;
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  button {
+    width: 100%;
+  }
+}
+
+pre {
+  background-color: #111;
+  color: #0f0;
+  padding: 1rem;
+  border: 1px solid #0f0;
+  border-radius: 5px;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  max-width: 100%;
+}
+
+@media (max-width: 768px) {
+  th,
+  td {
+    font-size: 0.9rem;
+  }
+
+  button {
+    width: 100%;
+  }
+}

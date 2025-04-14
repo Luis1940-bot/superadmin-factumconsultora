@@ -1,0 +1,107 @@
+/* verRepetidosControl.css */
+
+body {
+  background: #000;
+  color: #0f0;
+  font-family: 'Courier New', Courier, monospace;
+  padding: 2rem;
+  min-height: 100vh;
+}
+
+h2,
+h3,
+h4 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+input,
+button {
+  font-family: inherit;
+  font-size: 1rem;
+  border: 1px solid #0f0;
+  border-radius: 4px;
+  background: #000;
+  color: #0f0;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+input {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+th,
+td {
+  border: 1px solid #0f0;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background: #111;
+}
+
+.copy-btn,
+.update-btn,
+.update-all-btn {
+  background-color: #111;
+  color: #0f0;
+  border: 1px solid #0f0;
+  padding: 6px 12px;
+  font-size: 0.9rem;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: 2px;
+  transition: background-color 0.3s ease;
+}
+
+.copy-btn:hover,
+.update-btn:hover,
+.update-all-btn:hover {
+  background-color: #0f0;
+  color: #000;
+}
+
+#searchInput {
+  display: block;
+  margin: 0 auto;
+  width: 50%;
+}
+
+.div-sadmin-buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.button-selector-sadmin {
+  background-color: #111;
+  color: #0f0;
+  border: 1px solid #0f0;
+  border-radius: 5px;
+  padding: 12px 24px;
+  font-family: inherit;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  max-width: 320px;
+}
+
+.button-selector-sadmin:hover {
+  background-color: #0f0;
+  color: #000;
+}
+
+@media (max-width: 768px) {
+  #searchInput {
+    width: 90%;
+  }
+}

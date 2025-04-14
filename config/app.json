@@ -1,0 +1,113 @@
+{
+  "Sad": [
+    {
+      "name": "AuthUser",
+      "ruta": "api/AuthUser/auth.php",
+      "type": "popup"
+    },
+    {
+      "name": "Ver Usuarios",
+      "ruta": "api/usuarios/index.php",
+      "type": "popup"
+    },
+    {
+      "name": "RegisterPlant",
+      "ruta": "api/RegisterPlant/plant.php",
+      "type": "popup"
+    },
+    {
+      "name": "phpinfo",
+      "ruta": "api/phpinfo.php",
+      "type": "popup"
+    },
+    {
+      "name": "hash",
+      "ruta": "api/hash/hash.php",
+      "type": "popup"
+    },
+    {
+      "name": "Add Campos con Excel",
+      "ruta": "api/pegarExcel/pegarExcel.php",
+      "type": "popup"
+    },
+    {
+      "name": "Repetidos en LTYcontrol",
+      "ruta": "api/verRepetidosControl/verRepetidosControl.php",
+      "type": "popup"
+    },
+    {
+      "name": "Corregir Registros",
+      "ruta": "api/corregirRegistros/get_records.php",
+      "type": "popup"
+    },
+    {
+      "name": "Ver Logs",
+      "ruta": "api/verLogs/visor_logs.php",
+      "type": "popup"
+    },
+    {
+      "name": "Forzar Reload",
+      "ruta": "api/recargaForzada/recarga-control.php",
+      "type": "popup"
+    },
+    {
+      "name": "Últimos LTYregistros",
+      "ruta": "api/LTYregistros/ltyRegistros.php",
+      "type": "popup"
+    },
+    {
+      "name": "Show Porcesslist",
+      "ruta": "api/showProcess/processlist.php",
+      "type": "popup"
+    },
+    {
+      "name": "Tipo de Usuarios",
+      "ruta": "api/tiposUsuario/tipos_usuario.php",
+      "type": "popup"
+    },
+    {
+      "name": "Procedimientos",
+      "ruta": "api/procedimientos/rutinas.php",
+      "type": "popup"
+    },
+    {
+      "name": "Monitor de Accesos",
+      "ruta": "api/monitorAccesos/accesos.php",
+      "type": "popup"
+    },
+    {
+      "name": "Constructor JSON Sadmin",
+      "ruta": "api/editorJson/editor_json.php",
+      "type": "popup",
+      "jsonPath": null
+    },
+    {
+      "name": "Constructor App JSON Tenki",
+      "ruta": "api/editorJson/editor_json.php",
+      "type": "popup",
+      "jsonPath": "/models/App/xxx/app.json\n"
+    },
+    {
+      "name": "Constructor JSON Consultas Tenki",
+      "ruta": "api/editorJson/editor_json.php",
+      "type": "popup",
+      "jsonPath": "/models/consultas/xxx/app.json"
+    },
+    {
+      "name": "Constructor JSON Log Tenki",
+      "ruta": "api/editorJson/editor_json.php",
+      "type": "popup",
+      "jsonPath": "/models/log.json"
+    },
+    {
+      "name": "Ordenar Control",
+      "ruta": "api/ordenar/ordenar.php",
+      "type": "popup"
+    },
+    {
+      "name": "Monitor de Log-Accesos",
+      "ruta": "api/monitorLogAccesos/monitor_de_accesos.php",
+      "type": "popup"
+    }
+  ]
+}

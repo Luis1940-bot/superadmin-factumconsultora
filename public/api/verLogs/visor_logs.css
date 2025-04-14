@@ -1,0 +1,127 @@
+body {
+  background: #000;
+  color: #0f0;
+  font-family: 'Courier New', Courier, monospace;
+  padding: 2rem;
+  min-height: 100vh;
+}
+
+h2,
+h3,
+h4 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+input,
+button {
+  font-family: inherit;
+  font-size: 1rem;
+  border: 1px solid #0f0;
+  border-radius: 4px;
+  background: #000;
+  color: #0f0;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+input {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+th,
+td {
+  border: 1px solid #0f0;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background: #111;
+}
+
+button {
+  background-color: #111;
+  color: #0f0;
+  border: 1px solid #0f0;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  transition:
+    background 0.3s ease,
+    transform 0.1s ease;
+  margin-top: 1.5rem;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+button:hover {
+  background-color: #0f0;
+  color: #000;
+  transform: scale(1.05);
+}
+
+button:active {
+  background-color: #0a0;
+  transform: scale(0.98);
+}
+
+.button-selector-sadmin {
+  background-color: #111;
+  color: #0f0;
+  border: 1px solid #0f0;
+  border-radius: 5px;
+  padding: 12px 24px;
+  font-family: inherit;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  max-width: 320px;
+  width: 100%;
+}
+
+.button-selector-sadmin:hover {
+  background-color: #0f0;
+  color: #000;
+}
+
+#mensajeRegistros {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+#mensajeRegistros.error {
+  color: #f33;
+}
+
+#mensajeRegistros.warning {
+  color: #ff0;
+}
+
+#mensajeRegistros.ok {
+  color: #0f0;
+}
+
+@media (max-width: 768px) {
+  table,
+  th,
+  td {
+    font-size: 0.9rem;
+  }
+
+  button {
+    width: 100%;
+  }
+}

@@ -1,0 +1,131 @@
+body {
+  background: #000;
+  color: #0f0;
+  font-family: 'Courier New', Courier, monospace;
+  padding: 2rem;
+  min-height: 100vh;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #0f0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+th,
+td {
+  border: 1px solid #0f0;
+  padding: 10px;
+  text-align: center;
+}
+
+th {
+  background: #111;
+}
+
+.div-sadmin-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.button-selector-sadmin {
+  background-color: #111;
+  color: #0f0;
+  border: 1px solid #0f0;
+  border-radius: 5px;
+  padding: 12px 24px;
+  font-family: inherit;
+  font-size: 1rem;
+  cursor: pointer;
+  transition:
+    background-color 0.3s ease,
+    transform 0.1s ease;
+}
+
+.button-selector-sadmin:hover {
+  background-color: #0f0;
+  color: #000;
+  transform: scale(1.05);
+}
+
+.button-selector-sadmin:active {
+  background-color: #0a0;
+  transform: scale(0.95);
+}
+
+.json-wrapper {
+  font-family: 'Courier New', monospace;
+  color: #0f0;
+}
+
+.json-toggle {
+  cursor: pointer;
+  color: #0ff;
+  display: inline-block;
+  margin-bottom: 8px;
+  user-select: none;
+}
+
+.json-tree {
+  background: #000;
+  border: 1px solid #0f0;
+  padding: 10px;
+  max-height: 400px;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  font-size: 0.9rem;
+}
+.hidden {
+  display: none;
+}
+/* Buscador estilo hacker */
+#registroSearch {
+  display: block;
+  width: 60%;
+  margin: 2rem auto 1.5rem auto;
+  padding: 12px 16px;
+  background-color: #000;
+  border: 1px solid #0f0;
+  border-radius: 4px;
+  color: #0f0;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1rem;
+  box-shadow: 0 0 5px #0f0;
+  transition: box-shadow 0.3s ease;
+}
+
+#registroSearch::placeholder {
+  color: #0f0;
+  opacity: 0.6;
+}
+
+#registroSearch:focus {
+  outline: none;
+  box-shadow: 0 0 10px #0f0;
+}
+
+@media (max-width: 768px) {
+  table,
+  th,
+  td {
+    font-size: 0.9rem;
+  }
+
+  .div-sadmin-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .button-selector-sadmin {
+    width: 100%;
+    max-width: 300px;
+  }
+}

@@ -1,0 +1,87 @@
+/* ------------------------
+   Estilo para resultados
+   ------------------------ */
+
+body.hacker-mode {
+  background: #000;
+  color: #0f0;
+  font-family: 'Courier New', Courier, monospace;
+  padding: 2rem;
+  margin: 0;
+}
+
+body.hacker-mode h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  color: #0f0;
+}
+
+body.hacker-mode table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+body.hacker-mode th,
+body.hacker-mode td {
+  border: 1px solid #0f0;
+  padding: 8px 10px;
+  text-align: left;
+  max-width: 400px;
+  word-break: break-word;
+}
+
+body.hacker-mode th {
+  background: #111;
+  color: #0f0;
+}
+
+body.hacker-mode tr:nth-child(even) {
+  background: #010;
+}
+
+body.hacker-mode tr:hover {
+  background: #020;
+}
+
+body.hacker-mode pre,
+body.hacker-mode code {
+  color: #0f0;
+  background: #111;
+  padding: 10px;
+  display: block;
+  overflow-x: auto;
+}
+
+body.hacker-mode .error {
+  color: #f00;
+  font-weight: bold;
+}
+.floating-actions {
+  position: sticky;
+  top: 1rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  z-index: 999;
+  background: #000;
+  padding: 8px;
+  margin-bottom: 10px;
+}
+
+.floating-actions button {
+  background: #111;
+  border: 1px solid #0f0;
+  color: #0f0;
+  font-size: 1.2rem;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background 0.2s ease;
+}
+
+.floating-actions button:hover {
+  background: #0f0;
+  color: #000;
+}

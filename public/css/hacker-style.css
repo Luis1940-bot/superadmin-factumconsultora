@@ -1,0 +1,122 @@
+/* === RESET & BASE === */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #000;
+  color: #0f0;
+  font-family: 'Courier New', Courier, monospace;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 1rem;
+}
+
+/* === CONSOLE CONTAINER === */
+#console {
+  background: #111;
+  border: 1px solid #0f0;
+  box-shadow: 0 0 10px #0f0;
+  padding: 20px;
+  width: 100%;
+  max-width: 700px;
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+/* === ASCII BANNER === */
+pre.ascii-banner {
+  color: #0f0;
+  font-size: 0.8em;
+  margin-bottom: 1rem;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+/* === TEXT LOG === */
+#log {
+  font-size: 1em;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+/* === INPUT FIELD === */
+#inputField {
+  width: 100%;
+  background: black;
+  color: #0f0;
+  border: none;
+  font-size: 1em;
+  padding: 10px;
+  font-family: 'Courier New', Courier, monospace;
+  outline: none;
+  margin-top: 10px;
+}
+
+/* === INFO EXTRA === */
+.access-info {
+  color: #0f0;
+  margin-top: 1px;
+  font-size: 0.6em;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+/* === SMALL SCREENS (phones) === */
+@media only screen and (max-width: 600px) {
+  #console {
+    padding: 15px;
+  }
+
+  pre.ascii-banner {
+    font-size: 0.65em;
+  }
+
+  #log {
+    font-size: 0.9em;
+  }
+
+  #inputField {
+    font-size: 0.95em;
+    padding: 8px;
+  }
+}
+
+/* === MEDIUM SCREENS (tablets, phones landscape) === */
+@media only screen and (min-width: 601px) and (max-width: 1199px) {
+  pre.ascii-banner {
+    font-size: 0.75em;
+  }
+
+  #console {
+    max-width: 600px;
+  }
+
+  #inputField {
+    font-size: 1em;
+  }
+}
+
+/* === LARGE SCREENS (desktop) === */
+@media (min-width: 1200px) {
+  body {
+    padding: 2rem;
+  }
+
+  #console {
+    max-width: 900px;
+  }
+
+  pre.ascii-banner {
+    font-size: 1em;
+  }
+
+  #inputField {
+    font-size: 1.1em;
+  }
+}

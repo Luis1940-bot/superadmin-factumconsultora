@@ -1,0 +1,206 @@
+/* =========================
+   Estilo Hacker Responsivo
+   ========================= */
+
+body {
+  background: #000;
+  color: #0f0;
+  font-family: 'Courier New', Courier, monospace;
+  padding: 2rem;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+h1,
+h2,
+h3 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+input,
+button {
+  font-family: inherit;
+  font-size: 1rem;
+  border: 1px solid #0f0;
+  border-radius: 4px;
+  background: #000;
+  color: #0f0;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+input {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+/* =========================
+   Tabla de procesos
+   ========================= */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1.5rem;
+}
+
+th,
+td {
+  border: 1px solid #0f0;
+  padding: 8px;
+  text-align: center;
+  word-break: break-word;
+}
+
+th {
+  background: #111;
+}
+
+/* =========================
+   Columna con tiempo alto
+   ========================= */
+
+.tiempo-alto {
+  background-color: #400;
+  color: #fff;
+  font-weight: bold;
+}
+
+/* =========================
+   Botones generales
+   ========================= */
+
+button,
+.btn-kill {
+  background-color: #111;
+  color: #0f0;
+  border: 1px solid #0f0;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  transition:
+    background 0.3s ease,
+    transform 0.1s ease;
+  margin: 0.5rem auto;
+  display: block;
+  max-width: 320px;
+  width: 100%;
+}
+
+button:hover,
+.btn-kill:hover {
+  background-color: #0f0;
+  color: #000;
+  transform: scale(1.05);
+}
+
+button:active {
+  background-color: #0a0;
+  transform: scale(0.98);
+}
+
+/* =========================
+   Botón KILL especial
+   ========================= */
+
+.btn-kill {
+  background-color: #300;
+  color: #fff;
+  border: 1px solid #f00;
+}
+
+.btn-kill:hover {
+  background-color: #f00;
+  color: #fff;
+}
+
+/* =========================
+   Contenedor botones
+   ========================= */
+
+.div-sadmin-buttons {
+  margin-top: 2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* =========================
+   Tooltip para consultas largas
+   ========================= */
+
+td[title] {
+  cursor: help;
+}
+
+/* IP con muchas conexiones */
+.alerta-ip {
+  background-color: #500 !important;
+  color: #fff;
+  font-weight: bold;
+}
+.total-procesos {
+  text-align: center;
+  margin-top: -1rem;
+  color: #0f0;
+}
+.floating-buttons {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 9999;
+}
+
+.floating-buttons a {
+  background-color: #000;
+  color: #0f0;
+  border: 1px solid #0f0;
+  padding: 10px 16px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: bold;
+  text-align: center;
+  font-family: 'Courier New', monospace;
+  transition: background-color 0.3s ease;
+}
+
+.floating-buttons a:hover {
+  background-color: #0f0;
+  color: #000;
+}
+.clase-alerta {
+  margin-top: 2rem;
+  color: #f00;
+  font-weight: bold;
+  text-align: center;
+}
+/* =========================
+   Responsive
+   ========================= */
+
+@media (max-width: 768px) {
+  table,
+  th,
+  td {
+    font-size: 0.9rem;
+  }
+
+  button {
+    width: 100%;
+  }
+
+  .div-sadmin-buttons {
+    width: 100%;
+    padding: 0 1rem;
+  }
+}

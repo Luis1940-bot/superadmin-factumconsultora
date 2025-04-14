@@ -1,0 +1,225 @@
+/* Estilo general */
+body {
+  background: #000;
+  color: #0f0;
+  font-family: 'Courier New', Courier, monospace;
+  padding: 2rem;
+  min-height: 100vh;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+input,
+select,
+button {
+  font-family: inherit;
+  font-size: 1rem;
+  border: 1px solid #0f0;
+  border-radius: 4px;
+  background: #000;
+  color: #0f0;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+input[type='text'],
+select {
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+button {
+  background-color: #111;
+  border: 1px solid #0f0;
+  cursor: pointer;
+  transition:
+    background 0.3s ease,
+    transform 0.1s ease;
+  padding: 10px 20px;
+  font-weight: bold;
+  border-radius: 5px;
+  margin-top: 1rem;
+}
+
+button:hover {
+  background-color: #0f0;
+  color: #000;
+  transform: scale(1.05);
+}
+
+button:active {
+  background-color: #0a0;
+  transform: scale(0.98);
+}
+
+/* Tabla de usuarios */
+#usuariosTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+#usuariosTable th,
+#usuariosTable td {
+  border: 1px solid #0f0;
+  padding: 8px;
+  text-align: left;
+}
+
+#usuariosTable th {
+  background: #111;
+}
+
+/* Botones dentro de la tabla */
+.btn-edit,
+.btn-cancel,
+.btn-guardar {
+  display: inline-block;
+  font-size: 0.9rem;
+  padding: 8px 12px;
+  margin: 2px;
+}
+
+.btn-edit,
+.btn-guardar {
+  background-color: #111;
+  color: #0f0;
+}
+
+.btn-cancel {
+  background-color: #300;
+  color: #fff;
+}
+
+.btn-edit,
+.btn-guardar:hover {
+  background-color: #0f0;
+  color: #000;
+}
+
+.btn-cancel:hover {
+  background-color: #f00;
+  color: #fff;
+}
+
+/* Modal */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 255, 0, 0.05);
+}
+
+.modal-content {
+  background-color: #000;
+  color: #0f0;
+  margin: 5% auto;
+  padding: 20px;
+  border: 2px solid #0f0;
+  width: 90%;
+  max-width: 600px;
+  border-radius: 6px;
+}
+
+.modal-content label {
+  display: block;
+  margin: 10px 0;
+}
+
+.modal-content input,
+.modal-content select {
+  width: 100%;
+}
+
+.close {
+  color: #0f0;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.close:hover {
+  color: #f00;
+}
+
+/* Buscador */
+#searchInput {
+  display: block;
+  width: 60%;
+  margin: 0 auto 1.5rem;
+  padding: 12px;
+  background: #000;
+  border: 1px solid #0f0;
+  color: #0f0;
+  font-size: 1rem;
+}
+
+#searchInput:focus {
+  outline: none;
+  box-shadow: 0 0 5px #0f0;
+}
+
+/* Mostrar el modal cuando tiene la clase 'show' */
+.modal.show {
+  display: block;
+  animation: fadeInModal 0.4s ease-in-out;
+}
+
+/* Animación de entrada */
+@keyframes fadeInModal {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.button-selector-sadmin {
+  background-color: #111;
+  color: #0f0;
+  border: 1px solid #0f0;
+  border-radius: 5px;
+  padding: 12px 24px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  /* margin: 1rem auto; */
+  display: block;
+  max-width: 320px;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  #usuariosTable,
+  #usuariosTable th,
+  #usuariosTable td {
+    font-size: 0.85rem;
+  }
+
+  #searchInput {
+    width: 90%;
+  }
+
+  .modal-content {
+    width: 95%;
+  }
+
+  button {
+    width: 100%;
+  }
+}

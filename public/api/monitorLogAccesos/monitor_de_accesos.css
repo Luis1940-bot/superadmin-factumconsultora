@@ -1,0 +1,176 @@
+body {
+  background-color: #000;
+  color: #0f0;
+  font-family: 'Courier New', Courier, monospace;
+  padding: 1.5rem;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #00ff00;
+}
+
+.info-panel {
+  margin-bottom: 1rem;
+  background: #111;
+  border: 1px solid #0f0;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  word-wrap: break-word;
+}
+
+.controls {
+  margin-bottom: 1.5rem;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.btn {
+  background-color: #111;
+  color: #0f0;
+  border: 1px solid #0f0;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  transition:
+    background 0.3s,
+    color 0.3s;
+  flex: 1 1 auto;
+  min-width: 150px;
+  text-align: center;
+}
+
+.btn:hover {
+  background-color: #0f0;
+  color: #000;
+}
+
+#chartContainer {
+  width: 100%;
+  max-width: 100%;
+  height: 400px;
+  background-color: #111;
+  border: 1px solid #0f0;
+  border-radius: 6px;
+  padding: 1rem;
+  overflow-x: auto;
+  box-sizing: border-box;
+  margin-bottom: 1.5rem;
+}
+
+#tablaAccesos {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+
+#tablaAccesos th,
+#tablaAccesos td {
+  border: 1px solid #0f0;
+  padding: 8px 12px;
+  text-align: left;
+}
+
+#tablaAccesos th {
+  background-color: #0f0;
+  color: #000;
+}
+
+#tablaAccesos td {
+  background-color: #111;
+  color: #0f0;
+}
+
+.date-inputs {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.date-inputs label {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.9rem;
+}
+
+.date-inputs input[type='date'] {
+  background-color: #000;
+  color: #0f0;
+  border: 1px solid #0f0;
+  padding: 6px;
+  font-family: 'Courier New', Courier, monospace;
+  border-radius: 4px;
+  margin-top: 4px;
+}
+.search-box {
+  width: 100%;
+  max-width: 400px;
+  margin: 1rem auto;
+  display: block;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border: 1px solid #0f0;
+  background: #000;
+  color: #0f0;
+  border-radius: 6px;
+}
+.search-wrapper {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+#searchInput {
+  padding: 0.6rem 1rem;
+  font-size: 1rem;
+  width: 90%;
+  max-width: 420px;
+  border: 1px solid #0f0;
+  background: #000;
+  color: #0f0;
+  border-radius: 6px;
+}
+.tabla-accesos th,
+.tabla-accesos td {
+  border: 1px solid #0f0;
+  padding: 6px 10px;
+  text-align: left;
+  font-family: monospace;
+  font-size: 0.9rem;
+}
+
+.tabla-accesos th {
+  background-color: #000;
+  color: #0f0;
+  font-weight: bold;
+}
+
+.tabla-accesos tr:nth-child(even) {
+  background-color: #111;
+}
+
+.tabla-accesos tr:hover {
+  background-color: #222;
+}
+
+@media (max-width: 768px) {
+  .controls {
+    flex-direction: column;
+  }
+
+  .btn {
+    width: 100%;
+    font-size: 0.95rem;
+    padding: 10px;
+  }
+
+  h1 {
+    font-size: 1.2rem;
+  }
+}

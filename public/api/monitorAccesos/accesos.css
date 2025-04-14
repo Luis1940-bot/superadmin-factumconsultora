@@ -1,0 +1,120 @@
+body {
+  background: #000;
+  color: #0f0;
+  font-family: 'Courier New', Courier, monospace;
+  padding: 2rem;
+  min-height: 100vh;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 1rem;
+  background: #000;
+  color: #0f0;
+  border: 1px solid #0f0;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  border: 1px solid #0f0;
+  padding: 8px;
+  text-align: center;
+}
+
+th {
+  background-color: #111;
+}
+
+.success {
+  color: #0f0;
+  font-weight: bold;
+}
+
+.fail {
+  color: #f00;
+  font-weight: bold;
+}
+
+.floating-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.floating-buttons a,
+.floating-buttons button {
+  background: #000;
+  color: #0f0;
+  border: 1px solid #0f0;
+  padding: 10px 16px;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.chart-container {
+  margin-bottom: 2rem;
+}
+.ataques-panel {
+  background: #111;
+  border: 1px solid #f00;
+  padding: 1rem;
+  margin-top: 2rem;
+  border-radius: 8px;
+}
+
+.ataques-panel h2 {
+  color: #f00;
+  text-align: center;
+}
+
+.ataques-panel li {
+  color: #faa;
+  font-family: monospace;
+}
+#fuerzaBrutaTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 2rem;
+}
+
+#fuerzaBrutaTable th,
+#fuerzaBrutaTable td {
+  border: 1px solid #f00;
+  padding: 8px;
+  text-align: center;
+}
+
+#fuerzaBrutaTable th {
+  background: #111;
+  color: #f00;
+}
+
+#fuerzaBrutaTable td.fail {
+  font-weight: bold;
+  color: #f00;
+}
+.ataques-detectados {
+  background-color: #300;
+  color: #fff;
+  border: 1px solid #f00;
+  padding: 10px;
+  margin: 1rem auto;
+  max-width: 900px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  border-radius: 5px;
+}
