@@ -2,12 +2,12 @@
 // === Configuración de correo SMTP para alertas o notificaciones
 
 return [
-  'host'       => 'mail.tenkiweb.com',
+  'host'       => 'smtp.factumconsultora.com',
   'port'       => 587,
   'encryption' => 'tls', // ⚠️ TLS para puerto 587
-  'username'   => 'alerta.tenki@tenkiweb.com',
-  'password'   => ']SDGGL}#p.Ba',
-  'from'       => 'alerta.tenki@tenkiweb.com',
-  'from_name'  => 'TENKI Alerta',
-  'bcc'        => 'luisglogista@gmail.com',
+  'username'   => 'alerta.factum@factumconsultora.com',
+  'password'   => 'Factum2017admin',
+  'from'       => 'alerta.factum@factumconsultora.com',
+  'from_name'  => 'FACTUM Alerta',
+  'bcc'        => 'luis@factumconsultora.com',
 ];

@@ -11,7 +11,7 @@ header("X-Content-Type-Options: nosniff");
 header("X-Frame-Options: DENY");
 header("X-XSS-Protection: 1; mode=block");
 
-header("Access-Control-Allow-Origin: https://tenkiweb.com");
+header("Access-Control-Allow-Origin: https://factumconsultora.com");
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
 header("Access-Control-Allow-Credentials: true");
@@ -43,7 +43,7 @@ if (isset($_SESSION['timezone']) && is_string($_SESSION['timezone'])) {
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tenki | Autorizar Email</title>
+  <title>Factum | Autorizar Email</title>
 
   <link rel="stylesheet" href="<?php echo BASE_URL ?>/api/AuthUser/auth.css?v=<?php echo time(); ?>">
   <link rel="icon" href="<?php echo BASE_URL ?>/img/favicon.ico" type="image/x-icon" />

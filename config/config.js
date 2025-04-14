@@ -9,11 +9,11 @@ const getBaseUrl = () => {
     return 'http://localhost:8000';
   }
 
-  if (hostname === 'sadmin.tenkiweb.com') {
-    return 'https://sadmin.tenkiweb.com/';
+  if (hostname === 'sadmin.factumconsultora.com') {
+    return 'https://sadmin.factumconsultora.com/';
   }
 
-  return 'https://tenkiweb.com/tcontrol';
+  return 'https://factumconsultora.com/mccain';
 };
 
 // Exportar la función en lugar de una variable mutable

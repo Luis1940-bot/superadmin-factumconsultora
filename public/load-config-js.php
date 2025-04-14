@@ -9,10 +9,10 @@ $hostname = explode(':', $host)[0]; // Quita el puerto si viene (localhost:8000 
 
 if ($hostname === 'localhost' || $hostname === '127.0.0.1') {
   $baseUrl = 'http://localhost:8000';
-} elseif ($hostname === 'sadmin.tenkiweb.com') {
-  $baseUrl = 'https://sadmin.tenkiweb.com/';
+} elseif ($hostname === 'sadmin.factumconsultora.com') {
+  $baseUrl = 'https://sadmin.factumconsultora.com/';
 } else {
-  $baseUrl = 'https://tenkiweb.com/tcontrol';
+  $baseUrl = 'https://factumconsultora.com/tcontrol';
 }
 
 header('Content-Type: application/json');

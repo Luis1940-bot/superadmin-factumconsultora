@@ -31,7 +31,7 @@ $clienteId = $_SESSION['selected_client_id'];
 <body>
   <h1 id="cliente-nombre" data-cliente="<?= htmlspecialchars($cliente) ?>">🎛️ Panel de <?= htmlspecialchars($cliente) ?></h1>
   <p id="cliente-id" data-id="<?= $clienteId ?>">🔍 Herramientas activas para la organización ID: <?= $clienteId ?></p>
-  ⚙️ TenkiAdmin Panel - v1.0 © <?= date('Y') ?>
+  ⚙️ Factum Admin Panel - v1.0 © <?= date('Y') ?>
   <div class="button-group">
     <div class="div-sadmin-buttons" id="div-sadmin-buttons">
       <!-- Botones dinámicos se insertarán aquí -->

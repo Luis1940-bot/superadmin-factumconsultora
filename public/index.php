@@ -25,7 +25,7 @@ if (isset($_SESSION['superadmin_authenticated']) && $_SESSION['superadmin_authen
 
 <head>
   <meta charset="UTF-8" />
-  <title>SuperAdmin Access - TENKI</title>
+  <title>SuperAdmin Access - Factum</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="css/hacker-style.css?v=<?= time(); ?>" />
   <link rel='shortcut icon' type='image/x-icon' href='<?php echo $baseDir ?>/img/favicon.ico'>
@@ -34,16 +34,15 @@ if (isset($_SESSION['superadmin_authenticated']) && $_SESSION['superadmin_authen
 <body>
   <div id="console">
     <pre class="ascii-banner">
-
-  _______ ______ _   _ _  _______ 
- |__   __|  ____| \ | | |/ /_   _|
-    | |  | |__  |  \| | ' /  | |  
-    | |  |  __| | . ` |  <   | |  
-    | |  | |____| |\  | . \ _| |_ 
-    |_|  |______|_| \_|_|\_\_____|
-                                  
+  ______      _____ _______ _    _ __  __ 
+ |  ____/\   / ____|__   __| |  | |  \/  |
+ | |__ /  \ | |       | |  | |  | | \  / |
+ |  __/ /\ \| |       | |  | |  | | |\/| |
+ | | / ____ \ |____   | |  | |__| | |  | |
+ |_|/_/    \_\_____|  |_|   \____/|_|  |_|
+                                                       
                
-    SuperAdmin Console - TENKI
+    SuperAdmin Console - Factum
 
     🧑‍💼 admin: <?php echo $emailAdmin; ?>  
     📆 creado: <?php echo $creadoEn; ?>

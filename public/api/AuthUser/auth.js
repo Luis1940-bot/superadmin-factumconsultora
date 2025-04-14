@@ -122,6 +122,6 @@ document.getElementById('btn-cerrar').addEventListener('click', () => {
       'warning',
     );
     // O redirigir:
-    // window.location.href = 'https://tenkiweb.com';
+    // window.location.href = 'https://factumconsultora.com';
   }
 });

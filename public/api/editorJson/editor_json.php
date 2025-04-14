@@ -4,7 +4,7 @@ $nonce = base64_encode(random_bytes(16));
 
 // Headers de seguridad
 // header("Content-Security-Policy: default-src 'self'; script-src 'self' 'nonce-$nonce'; style-src 'self' 'nonce-$nonce'; connect-src *; object-src 'none';");
-header("Content-Security-Policy: default-src 'self'; connect-src 'self' https://tenkiweb.com; script-src 'self' 'nonce-$nonce'; style-src 'self' 'nonce-$nonce';");
+header("Content-Security-Policy: default-src 'self'; connect-src 'self' https://factumconsultora.com; script-src 'self' 'nonce-$nonce'; style-src 'self' 'nonce-$nonce';");
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, POST");
 header("Access-Control-Allow-Headers: Content-Type");
@@ -35,7 +35,7 @@ if ($jsonPathParam === null || $jsonPathParam === '' || $jsonPathParam === 'null
 } else {
   // 2. Si jsonPath tiene valor, es remoto
   $relative = str_replace('xxx', $id, $jsonPathParam);
-  $remoteJsonUrl = "https://tenkiweb.com/tcontrol{$relative}";
+  $remoteJsonUrl = "https://factumconsultora.com/mccain{$relative}";
   $jsonData = @file_get_contents($remoteJsonUrl);
   $data = $jsonData ? json_decode($jsonData, true) : ['error' => 'No se pudo cargar JSON remoto.'];
   $jsonPathFinal = $remoteJsonUrl;

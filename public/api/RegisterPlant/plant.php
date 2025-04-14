@@ -15,7 +15,7 @@ header("X-Content-Type-Options: nosniff");
 header("X-Frame-Options: DENY");
 header("X-XSS-Protection: 1; mode=block");
 
-header("Access-Control-Allow-Origin: https://tenkiweb.com");
+header("Access-Control-Allow-Origin: https://factumconsultora.com");
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
 header("Access-Control-Allow-Credentials: true");

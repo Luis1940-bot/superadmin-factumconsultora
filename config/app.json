@@ -82,19 +82,19 @@
       "jsonPath": null
     },
     {
-      "name": "Constructor App JSON Tenki",
+      "name": "Constructor App JSON Factum",
       "ruta": "api/editorJson/editor_json.php",
       "type": "popup",
       "jsonPath": "/models/App/xxx/app.json\n"
     },
     {
-      "name": "Constructor JSON Consultas Tenki",
+      "name": "Constructor JSON Consultas Factum",
       "ruta": "api/editorJson/editor_json.php",
       "type": "popup",
       "jsonPath": "/models/consultas/xxx/app.json"
     },
     {
-      "name": "Constructor JSON Log Tenki",
+      "name": "Constructor JSON Log Factum",
       "ruta": "api/editorJson/editor_json.php",
       "type": "popup",
       "jsonPath": "/models/log.json"

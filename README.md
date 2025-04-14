@@ -1,4 +1,4 @@
-# SuperAdmin - TenkiWeb
+# SuperAdmin - Factum
 
 Herramientas internas para asistencia remota, administración y control de sistemas en producción.
 
@@ -13,10 +13,10 @@ Herramientas internas para asistencia remota, administración y control de siste
 
 Este es un módulo frontend estático. Puede deployarse como:
 
-- Subdominio (ej: sadmin.tenkiweb.com)
+- Subdominio (ej: sadmin.factumconsultora.com)
 - Carpeta protegida dentro del dominio principal
 
-superadmin-tenkiweb/
+superadmin-factumconsultora/
 ├── public/ # Contenido accesible por navegador
 │ ├── index.php # Punto de entrada principal
 │ ├── css/

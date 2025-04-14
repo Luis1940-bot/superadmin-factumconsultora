@@ -94,11 +94,11 @@ $rutasInternas = [
 ];
 
 $rutasExternas = [
-  '/addCompania'  => 'https://tenkiweb.com/tcontrol/Pages/RegisterPlant/Routes/nuevaCompania.php',
-  '/escribeJSON'  => 'https://tenkiweb.com/tcontrol/Pages/RegisterPlant/Routes/escribeJSON.php',
-  '/creaJSONapp'  => 'https://tenkiweb.com/tcontrol/Pages/RegisterPlant/Routes/creaJSONapp.php',
-  '/subirImagen'  => 'https://tenkiweb.com/tcontrol/Routes/Imagenes/photo_upload.php',
-  '/leerLogsExternos'  => 'https://tenkiweb.com/tcontrol/logs/error.log',
+  '/addCompania'  => 'https://factumconsultora.com/tcontrol/Pages/RegisterPlant/Routes/nuevaCompania.php',
+  '/escribeJSON'  => 'https://factumconsultora.com/tcontrol/Pages/RegisterPlant/Routes/escribeJSON.php',
+  '/creaJSONapp'  => 'https://factumconsultora.com/tcontrol/Pages/RegisterPlant/Routes/creaJSONapp.php',
+  '/subirImagen'  => 'https://factumconsultora.com/tcontrol/Routes/Imagenes/photo_upload.php',
+  '/leerLogsExternos'  => 'https://factumconsultora.com/tcontrol/logs/error.log',
 ];
 
 $rutas = array_map('rutaInterna', $rutasInternas) + $rutasExternas;
@@ -119,8 +119,8 @@ if (filter_var($destino, FILTER_VALIDATE_URL)) {
   // Headers comunes
   $headers = [
     'User-Agent: Mozilla/5.0',
-    'Referer: https://sadmin.tenkiweb.com',
-    'Origin: https://sadmin.tenkiweb.com',
+    'Referer: https://sadmin.factumconsultora.com',
+    'Origin: https://sadmin.factumconsultora.com',
   ];
 
   if ($isJson) {

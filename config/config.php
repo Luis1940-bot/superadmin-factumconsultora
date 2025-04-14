@@ -31,13 +31,13 @@ $currentHost = $_SERVER['HTTP_HOST'] ?? '';
 
 if (isLocalhost()) {
   define('BASE_URL', 'http://localhost:8000');
-} elseif (strpos($currentHost, 'test.tenkiweb.com') !== false) {
-  define('BASE_URL', 'https://test.tenkiweb.com');
+} elseif (strpos($currentHost, 'test.factumconsultora.com') !== false) {
+  define('BASE_URL', 'https://test.factumconsultora.com');
 } else {
-  define('BASE_URL', 'https://sadmin.tenkiweb.com');
+  define('BASE_URL', 'https://sadmin.factumconsultora.com');
 }
 // === Datos del sistema
-define('APP_NAME', 'SuperAdmin TENKI');
+define('APP_NAME', 'SuperAdmin Factum');
 define('APP_AUTHOR', 'Luis Gimenez');
-define('APP_LOGO', 'tcontrol');
+define('APP_LOGO', 'factum');
 define('APP_LINKEDIN', 'https://linkedin.com/in/luisergimenez');

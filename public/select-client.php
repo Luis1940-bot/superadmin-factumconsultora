@@ -50,7 +50,7 @@ if (!isset($_SESSION['superadmin_authenticated'])) {
     const select = document.getElementById('clienteSelect');
     const btn = document.getElementById('btnContinuar');
 
-    fetch('https://tenkiweb.com/tcontrol/models/log.json')
+    fetch('https://factumconsultora.com/mccain/models/log.json')
       .then(res => res.json())
       .then(data => {
         data.plantas.forEach(p => {
