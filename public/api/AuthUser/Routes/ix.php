@@ -12,7 +12,7 @@ if (isset($_SESSION['timezone']) && is_string($_SESSION['timezone'])) {
 // error_reporting(E_ALL); // Muestra todos los errores y warnings
 // ini_set('display_errors', '1'); // Asegúrate de que los errores sean mostrados (no usar en producción)
 
-require_once dirname(dirname(dirname(dirname(__DIR__)))) . '/config/config.php';
+require_once dirname(dirname(dirname(dirname(__DIR__)))) . '/private/config/config.php';
 // include('datos.php');
 
 
