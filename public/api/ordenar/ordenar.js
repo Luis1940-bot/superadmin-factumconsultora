@@ -10,7 +10,10 @@ const btnSalir = document.getElementById('btnSalir');
 // 🔄 Cargar lista de reportes
 async function cargarReportes() {
   try {
-    const res = await fetch('reportes.php');
+    const dbId = document.getElementById('cliente-id')?.dataset.id;
+    const res = await fetch(
+      `reportes.php?id=${encodeURIComponent(dbId)}&_=${Date.now()}`,
+    );
     const json = await res.json();
     if (!json.success) {
       mostrarMensaje('❌ Error al cargar reportes', 'error');
@@ -32,11 +35,15 @@ async function cargarReportes() {
 // 📋 Cargar controles del reporte seleccionado
 async function cargarControles(ide) {
   try {
-    const res1 = await fetch('data.php', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ ide }), // ✅ parámetro corregido
-    });
+    const dbId = document.getElementById('cliente-id')?.dataset.id;
+    const res1 = await fetch(
+      `data.php?id=${encodeURIComponent(dbId)}&_=${Date.now()}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ide }), // ✅ parámetro corregido
+      },
+    );
 
     const json = await res1.json();
 
@@ -74,13 +81,13 @@ async function cargarControles(ide) {
 
           const ordenNumerico = Number(nuevoOrden);
           if (!nuevoOrden || Number.isNaN(ordenNumerico)) return;
-
-          const res = await fetch('mover.php', {
+          const res = await fetch(`mover.php`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
               idLTYcontrol: id,
               nuevoOrden: ordenNumerico,
+              dbId,
             }),
           });
 
@@ -109,7 +116,6 @@ selectReporte.addEventListener('change', () => {
     mostrarMensaje('⚠️ Seleccioná un reporte válido', 'warning');
     return;
   }
-
   idReporteActual = selectedId;
   cargarControles(selectedId);
 });

@@ -1,0 +1,32 @@
+# =============================
+# 📦 DEPENDENCIAS (Node & PHP)
+# =============================
+/node_modules/
+vendor/
+package-lock.json
+composer.lock
+
+# =============================
+# 🔐 ARCHIVOS SENSIBLES
+# =============================
+.env
+.env.local
+config/auth_token.php       # Token privado
+config/mail.php             # Config real SMTP (usá mail.example.php)
+models/log.json             # Contiene datos de clientes / sensibles
+private/logs/
+*.log
+
+# =============================
+# 🧹 ARCHIVOS TEMPORALES / SISTEMA
+# =============================
+.DS_Store
+Thumbs.db
+
+# =============================
+# 🧪 ARCHIVOS DE PRUEBA / DEBUG
+# =============================
+mail.example.php
+test-mail.php
+git 
+check_includes.php

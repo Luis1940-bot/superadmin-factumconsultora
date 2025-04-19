@@ -1,5 +1,5 @@
 <?php
-require_once dirname(__DIR__) . '/config/config.php';
+require_once dirname(__DIR__) . '/private/config/config.php';
 
 header('Content-Type: text/plain');
 
@@ -13,7 +13,7 @@ echo "🌍 BASE_URL:          " . BASE_URL . "\n";
 $targetFiles = ['app', 'log', 'config'];
 
 foreach ($targetFiles as $file) {
-  $path = BASE_DIR . "/config/{$file}.json";
+  $path = BASE_DIR . "/private/config/{$file}.json";
   echo "\n🔎 Verificando: {$file}.json\n";
   echo "🛣️  Ruta completa:     {$path}\n";
 

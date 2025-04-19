@@ -1,5 +1,4 @@
 <?php
-// proxy.php
 
 $allowedPaths = [
   'models/log.json',
@@ -7,13 +6,20 @@ $allowedPaths = [
 ];
 
 $path = $_GET['file'] ?? '';
-$path = str_replace('..', '', $path); // Básica sanitización para evitar payasadas
+$path = str_replace('..', '', $path); // 🧼 Sanitización básica
+$path = ltrim($path, '/'); // sin barra al principio, por las dudas
 
-if (!in_array($path, $allowedPaths)) {
+// ✅ Permitir si es una ruta exacta o si comienza con ciertos prefijos
+$allowed = in_array($path, $allowedPaths) ||
+  strpos($path, 'models/App/') === 0 ||
+  strpos($path, 'models/consultas/') === 0 ||
+  strpos($path, 'models/log.json') === 0;
+if (!$allowed) {
   http_response_code(403);
   echo json_encode(["error" => "Access Denied"]);
   exit;
 }
+
 
 $remoteBase = 'https://factumconsultora.com/scg-mccain/';
 $remoteUrl = $remoteBase . $path;

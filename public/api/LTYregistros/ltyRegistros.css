@@ -111,7 +111,10 @@ th {
   outline: none;
   box-shadow: 0 0 10px #0f0;
 }
-
+.datos-cabecera {
+  text-align: center;
+  padding: 2rem;
+}
 @media (max-width: 768px) {
   table,
   th,

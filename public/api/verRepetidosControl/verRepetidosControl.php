@@ -1,26 +1,40 @@
 <?php
+session_start();
+
+// Headers generales
 header('Content-Type: text/html;charset=utf-8');
 $nonce = base64_encode(random_bytes(16));
+
 header("Content-Security-Policy: default-src 'self'; img-src 'self' data: https: example.com; script-src 'self' 'nonce-$nonce' cdn.example.com; style-src 'self' 'nonce-$nonce' cdn.example.com; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests;");
 header("Strict-Transport-Security: max-age=31536000; includeSubDomains; preload");
 header("X-Content-Type-Options: nosniff");
 header("X-Frame-Options: DENY");
 header("X-XSS-Protection: 1; mode=block");
 header("Access-Control-Allow-Origin: https://factumconsultora.com");
-header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");
+header("Access-Control-Allow-Methods: GET, POST");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
 header("Access-Control-Allow-Credentials: true");
 
-require_once dirname(__DIR__, 3) . '/lib/ErrorLogger.php';
-ErrorLogger::initialize(dirname(__DIR__, 3) . '/logs/logs/error.log');
-require_once dirname(__DIR__, 3) . '/config/config.php';
-include_once $baseDir . "/config/datos_base.php";
-$baseDir = BASE_DIR;
+// Logs & Config
+require_once dirname(__DIR__, 3) . '/private/lib/ErrorLogger.php';
+ErrorLogger::initialize(dirname(__DIR__, 3) . '/private/logs/logs/error.log');
+require_once dirname(__DIR__, 3) . '/private/config/config.php';
 
+// Variables
+$inputData = json_decode(file_get_contents('php://input'), true);
+$dbname = $_GET['id'] ?? ($inputData['id'] ?? null);
 
-// 🔁 Si la petición es por AJAX, responder JSON
+// Si es POST: API response
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   header('Content-Type: application/json; charset=utf-8');
+
+  if (!$dbname) {
+    echo json_encode(['success' => false, 'message' => 'Falta ID de base']);
+    exit;
+  }
+
+  $baseDir = BASE_DIR;
+  include_once $baseDir . "/config/datos_base.php";
 
   $mysqli = new mysqli($host, $user, $password, $dbname, $port);
   if ($mysqli->connect_error) {
@@ -40,9 +54,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     )
     ORDER BY c.idLTYreporte, c.orden, c.idLTYcontrol ASC";
 
-  $result = $mysqli->query($sql);
   $datos = [];
-
+  $result = $mysqli->query($sql);
   if ($result && $result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
       $datos[] = $row;
@@ -54,13 +67,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   exit;
 }
 
-// 🌐 Si la carga es directa, renderizar la página
+// Si es GET: HTML
 $cssUrl = BASE_URL . "/api/verRepetidosControl/verRepetidosControl.css?v=" . time();
 $jsUrl = "/api/verRepetidosControl/verRepetidosControl.js?v=" . time();
 $favicon = BASE_URL . "/img/favicon.ico";
-
+$cliente = $_SESSION['selected_client_name'] ?? 'Desconocido';
+$clienteId = $_SESSION['selected_client_id'] ?? '0';
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 
@@ -73,7 +86,17 @@ $favicon = BASE_URL . "/img/favicon.ico";
 </head>
 
 <body>
+  <div class="datos-cabecera">
+    <h1 id="cliente-nombre" data-cliente="<?= htmlspecialchars($cliente) ?>">🎛️ Panel de <?= htmlspecialchars($cliente) ?></h1>
+    <p id="cliente-id" data-id="<?= "mc" . $clienteId . "000" ?>">🔍 Herramientas activas para la base ID: <?= "mc" . $clienteId . "000" ?></p>
+    ⚙️ Factum Admin Panel - v1.0 © <?= date('Y') ?>
+  </div>
+
   <h2>🧠 Estamos rastreando códigos en la tabla <code>LTYcontrol</code> que puedan estar duplicados...</h2>
+
+  <div class="acciones-panel">
+    <button id="btnCargar" class="button-selector-sadmin">🔄 Cargar registros repetidos</button>
+  </div>
 
   <input type="text" id="searchInput" placeholder="Buscar por ID LTYreporte">
 
@@ -100,7 +123,6 @@ $favicon = BASE_URL . "/img/favicon.ico";
 
   <script nonce="<?= $nonce ?>" src="<?= $jsUrl ?>" type="module"></script>
   <script src="<?= BASE_URL ?>/api/pegarExcel/crypto-js.min.js"></script>
-
 </body>
 
 </html>

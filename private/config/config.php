@@ -1,5 +1,6 @@
 <?php
 mb_internal_encoding('UTF-8');
+
 require_once dirname(__DIR__) . '/lib/ErrorLogger.php';
 ErrorLogger::initialize(dirname(__DIR__) . '/logs/error.log');
 

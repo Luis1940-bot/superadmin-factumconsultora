@@ -268,7 +268,10 @@ button {
   color: #0066cc;
   text-decoration: underline;
 }
-
+.datos-cabecera {
+  text-align: center;
+  padding: 2rem;
+}
 /* === RESPONSIVE === */
 @media (max-width: 768px) {
   .node-pair {

@@ -1,6 +1,6 @@
 <?php
-require_once dirname(__DIR__, 3) . '/config/config.php';
-include_once BASE_DIR . "/config/datos_base.php";
+require_once dirname(__DIR__, 3) . '/private/config/config.php';
+include_once BASE_DIR . "/private/config/datos_base.php";
 
 $mysqli = new mysqli($host, $user, $password, $dbname, $port);
 mysqli_set_charset($mysqli, "utf8mb4");

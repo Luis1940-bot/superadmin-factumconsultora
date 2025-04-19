@@ -1,7 +1,7 @@
 <?php
 
 // load-config-json.php
-require_once dirname(__DIR__) . '/config/config.php';
+require_once dirname(__DIR__) . '/private/config/config.php';
 
 $host = $_SERVER['HTTP_HOST'];
 $hostname = explode(':', $host)[0]; // Quita el puerto si viene (localhost:8000 → localhost)

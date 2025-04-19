@@ -7,6 +7,7 @@ async function readJSON(json, retries = 4, delay = 500) {
     try {
       // eslint-disable-next-line no-await-in-loop
       const response = await fetch(ruta);
+
       if (!response.ok) {
         throw new Error(`Error al cargar app.json: ${response.statusText}`);
       }

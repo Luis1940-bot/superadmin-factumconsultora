@@ -1,4 +1,5 @@
 <?php
+session_start();
 header('Content-Type: text/html;charset=utf-8');
 $nonce = base64_encode(random_bytes(16));
 
@@ -17,12 +18,20 @@ header("Access-Control-Allow-Headers: Content-Type");
 // header("Access-Control-Allow-Headers: Content-Type, Authorization");
 // header("Access-Control-Allow-Credentials: true");
 
-// Config
-require_once dirname(__DIR__, 3) . '/config/config.php';
+require_once dirname(__DIR__, 3) . '/private/lib/ErrorLogger.php';
+ErrorLogger::initialize(dirname(__DIR__, 3) . '/private/logs/logs/error.log');
+require_once dirname(__DIR__, 3) . '/private/config/config.php';
 $baseDir = BASE_DIR;
 $defaultJsonPath = $baseDir . '/config/app.json';
 
 $id = $_GET['id'] ?? null;
+$planta = null;
+if (preg_match('/mc(\d+)000/', $id, $matches)) {
+  $planta = (int)$matches[1]; // Te da 1 si es mc1000, 2 si mc2000, etc.
+} else {
+  echo "No se encontró nada, como en tu último intento de cocinar.";
+}
+
 $cliente = $_GET['cliente'] ?? null;
 $jsonPathParam = $_GET['jsonPath'] ?? null;
 $name = $_GET['name'] ?? null;
@@ -34,18 +43,46 @@ if ($jsonPathParam === null || $jsonPathParam === '' || $jsonPathParam === 'null
   $data = json_decode(file_get_contents($jsonPathFinal), true);
 } else {
   // 2. Si jsonPath tiene valor, es remoto
-  $relative = str_replace('xxx', $id, $jsonPathParam);
-  $remoteJsonUrl = "https://factumconsultora.com/scg-mccain{$relative}";
-  $jsonData = @file_get_contents($remoteJsonUrl);
+  $jsonPathParam = trim($jsonPathParam);
+  $jsonPathParam = preg_replace('/[\r\n]+/', '', $jsonPathParam);
+  // $relative = str_replace('xxx', $planta, $jsonPathParam);
+  // $encodedPath = rawurlencode(ltrim($relative, '/'));
+  $relative = str_replace('xxx', $planta, $jsonPathParam);
+  $encodedPath = ltrim($relative, '/'); // no rawurlencode
+
+
+  $isLocal = preg_match('/localhost|127\.0\.0\.1/i', $_SERVER['HTTP_HOST']);
+  $remoteJsonUrl = $isLocal
+    ? 'http://localhost:8000/api/proxy.php'
+    : 'https://sadmin.factumconsultora.com/api/proxy.php';
+  // $proxyBase = 'https://sadmin.factumconsultora.com/api/proxy.php';
+  $proxyUrl = $remoteJsonUrl . '?file=' . $encodedPath;
+
+  $jsonData = @file_get_contents($proxyUrl);
+
+
   $data = $jsonData ? json_decode($jsonData, true) : ['error' => 'No se pudo cargar JSON remoto.'];
-  $jsonPathFinal = $remoteJsonUrl;
+
+
+  if ($jsonData === false) {
+    $error = error_get_last();
+    error_log("🔥 ERROR: " . $error['message']);
+    $data = ['error' => 'No se pudo cargar JSON remoto.'];
+  } else {
+    $data = json_decode($jsonData, true);
+  }
+
+
+  $jsonPathFinal = "https://factumconsultora.com/scg-mccain{$relative}"; // Este es el *original* visible
+
 }
 
 $favicon = '/img/favicon.ico';
 $cssUrl = '/api/editorJson/editor_json.css?v=' . time();
 $jsUrl = '/api/editorJson/editor_json.js?v=' . time();
 $cssPrompt = '/js/modules/ui/prompt.css?v=' . time();
-
+$cliente = $_SESSION['selected_client_name'];
+$clienteId = $_SESSION['selected_client_id'];
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -59,7 +96,11 @@ $cssPrompt = '/js/modules/ui/prompt.css?v=' . time();
 </head>
 
 <body>
-
+  <div class="datos-cabecera">
+    <h1 id="cliente-nombre" data-cliente="<?= htmlspecialchars($cliente) ?>">🎛️ Panel de <?= htmlspecialchars($cliente) ?></h1>
+    <p id="cliente-id" data-id="<?= "mc" . $clienteId . "000" ?>">🔍 Herramientas activas para la base ID: <?= "mc" . $clienteId . "000" ?></p>
+    ⚙️ Factum Admin Panel - v1.0 © <?= date('Y') ?>
+  </div>
   <h1>🧠 Editor Visual de App JSON</h1>
 
   <div class="div-sadmin-buttons">
@@ -89,12 +130,13 @@ $cssPrompt = '/js/modules/ui/prompt.css?v=' . time();
 
 
 
+
   <div
     id="jsonContainer"
     data-json='<?= htmlspecialchars(json_encode($data), ENT_QUOTES) ?>'
     data-jsonpath="<?= htmlspecialchars($jsonPathFinal ?? '', ENT_QUOTES) ?>"
     data-isremote="<?= $remoteJsonUrl ? 'true' : 'false' ?>"
-    data-remoteurl="<?= htmlspecialchars($remoteJsonUrl ?? '', ENT_QUOTES) ?>"></div>
+    data-remoteurl="<?= htmlspecialchars($proxyUrl ?? '', ENT_QUOTES) ?>"></div>
 
   <button id="scrollToTopBtn" title="Volver arriba">⬆️</button>
   <div id="jsonSearchBox" class="floating-search-box">

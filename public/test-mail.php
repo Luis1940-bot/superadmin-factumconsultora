@@ -1,11 +1,11 @@
 <?php
 // test-mail.php
-require_once dirname(__DIR__) . '/config/config.php';
+require_once dirname(__DIR__) . '/private/config/config.php';
 /** @var string $baseUrl */
 $baseUrl = BASE_DIR;
 
-require_once $baseUrl . '/lib/ErrorLogger.php';
-ErrorLogger::initialize($baseUrl . '/logs/error.log');
+require_once $baseUrl . '/private/lib/ErrorLogger.php';
+ErrorLogger::initialize($baseUrl . '/private/logs/error.log');
 require_once $baseUrl . '/lib/Mailer.php'; // ajusta si está en otro nivel
 
 $asunto = '🧪 Test desde SuperAdmin';

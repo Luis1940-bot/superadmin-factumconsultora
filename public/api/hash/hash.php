@@ -16,9 +16,9 @@ header("Access-Control-Allow-Headers: Content-Type, Authorization");
 header("Access-Control-Allow-Credentials: true");
 
 // Incluir rutas absolutas desde raíz del proyecto
-require_once dirname(dirname(dirname(__DIR__))) . '/lib/ErrorLogger.php';
-ErrorLogger::initialize(dirname(dirname(dirname(__DIR__))) . '/logs/error.log');
-require_once dirname(dirname(dirname(__DIR__))) . '/config/config.php';
+require_once dirname(dirname(dirname(__DIR__))) . '/private/lib/ErrorLogger.php';
+ErrorLogger::initialize(dirname(dirname(dirname(__DIR__))) . '/private/logs/error.log');
+require_once dirname(dirname(dirname(__DIR__))) . '/private/config/config.php';
 ?>
 <!DOCTYPE html>
 <html lang="es">

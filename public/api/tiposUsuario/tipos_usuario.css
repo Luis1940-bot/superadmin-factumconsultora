@@ -61,7 +61,10 @@ button:active {
   background-color: #0a0;
   transform: scale(0.98);
 }
-
+.datos-cabecera {
+  text-align: center;
+  padding: 2rem;
+}
 @media (max-width: 768px) {
   th,
   td {

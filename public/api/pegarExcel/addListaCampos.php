@@ -12,11 +12,11 @@ header("Access-Control-Allow-Headers: Content-Type, Authorization");
 header("Access-Control-Allow-Credentials: true");
 
 require_once dirname(__DIR__, 3)
-  . '/lib/ErrorLogger.php';
+  . '/private/lib/ErrorLogger.php';
 ErrorLogger::initialize(dirname(__DIR__, 3)
-  . '/logs/logs/error.log');
+  . '/private/logs/logs/error.log');
 require_once dirname(__DIR__, 3)
-  . '/config/config.php';
+  . '/private/config/config.php';
 
 $baseDir = BASE_DIR;
 include_once $baseDir . "/config/datos_base.php";
@@ -31,12 +31,15 @@ if (isset($_SESSION['timezone']) && is_string($_SESSION['timezone'])) {
 header("Content-Type: application/json");
 
 $data = json_decode(file_get_contents("php://input"), true);
+// $data = '{"ruta":"/addListaCampos","datos":[{"control":"repr2f000421d9e","nombre":"nombre","detalle":"coloque sus nombres","tipodato":"tx","tpdeobserva":"x","orden":3},{"control":"repr2f000535a0c","nombre":"apelido","detalle":"coloque sus apellidos","tipodato":"tx","tpdeobserva":"x","orden":4}],"ultimoID":"5412","idLTYcliente":1,"idLTYreporte":"332","bdCliente":"mc1000"}';
+// $data = json_decode($data, true);
+
 
 if (!$data || !isset($data['datos']) || !isset($data['ultimoID'])) {
   echo json_encode(['success' => false, 'message' => 'Datos no válidos.']);
   exit;
 }
-
+$dbname = $data['bdCliente'];
 $mysqli = new mysqli($host, $user, $password, $dbname, $port);
 if ($mysqli->connect_error) {
   echo json_encode(['success' => false, 'message' => 'Error de conexión a la base de datos.']);
@@ -52,7 +55,6 @@ try {
   $idLTYreporte = intval($data['idLTYreporte']);
   $idLTYcliente = intval($data['idLTYcliente']);
   $visible = 's';
-
   foreach ($data['datos'] as $registro) {
     $control = $mysqli->real_escape_string($registro['control']);
     $nombre = $mysqli->real_escape_string($registro['nombre']);

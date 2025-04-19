@@ -85,3 +85,7 @@ body.hacker-mode .error {
   background: #0f0;
   color: #000;
 }
+.datos-cabecera {
+  text-align: center;
+  padding: 2rem;
+}

@@ -1,10 +1,10 @@
 <?php
 // config/datos_base.php
-$host     = "34.174.211.66";
+$host = "190.228.29.59";
+$user = "fmc_oper2023";
+$password = "0uC6jos0bnC8";
 $port     = 3306;
-$user     = "uumwldufguaxi";
-$password = "5lvvumrslp0v";
-$dbname   = "db5i8ff3wrjzw3";
+// $dbname   = "mc1000";
 $charset  = "utf8mb4";
 
 // 📡 Conexión PDO

@@ -19,8 +19,8 @@ header("Access-Control-Allow-Origin: https://factumconsultora.com");
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
 header("Access-Control-Allow-Credentials: true");
-require_once dirname(__DIR__, 3) . '/config/config.php';
-include_once $baseDir . "/config/datos_base.php";
+require_once dirname(__DIR__, 3) . '/private/config/config.php';
+include_once $baseDir . "/private/config/datos_base.php";
 $baseDir = BASE_DIR;
 
 // Ruta del flag

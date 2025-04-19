@@ -1,4 +1,5 @@
 <?php
+session_start();
 header('Content-Type: text/html;charset=utf-8');
 $nonce = base64_encode(random_bytes(16));
 
@@ -12,23 +13,32 @@ header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
 header("Access-Control-Allow-Credentials: true");
 
-require_once dirname(__DIR__, 3) . '/config/config.php';
+require_once dirname(__DIR__, 3) . '/private/config/config.php';
 
 $baseDir = BASE_DIR;
 include_once $baseDir . "/config/datos_base.php";
-
+$cliente = $_SESSION['selected_client_name'];
+$clienteId = $_SESSION['selected_client_id'];
 $charset = "utf8mb4";
+$dbname = $_GET['id'] ?? null;
+$allowedDbs = ['mc1000', 'mc2000', 'mc3000', 'mc4000', 'mc5000', 'mc6000'];
+if (!in_array($dbname, $allowedDbs)) {
+  die("❌ Base de datos no permitida.");
+}
 $mysqli = new mysqli($host, $user, $password, $dbname, $port);
 if ($mysqli->connect_error) {
   die('❌ Error de conexión a la base de datos.');
 }
 mysqli_set_charset($mysqli, "utf8mb4");
 
-$sql = "SELECT idLTYregistrocontrol, fecha, nuxpedido, idusuario, idLTYreporte, horaautomatica, supervisor, observacion, imagenes, idLTYcliente, hora, newJSON
-FROM LTYregistrocontrol
-ORDER BY horaautomatica DESC
-LIMIT 50;
-";
+$sql = "SELECT 
+  lt.idLTYregistrocontrol, lt.fecha, lt.nuxpedido, lt.idusuario, lt.idLTYreporte,
+  lt.horaautomatica, lt.supervisor, lt.observacion, lt.imagenes, 'mc1000' AS base, lt.objJSON
+FROM {$dbname}.LTYregistrocontrol lt
+WHERE lt.objJSON IS NOT NULL AND lt.objJSON != ''
+ORDER BY lt.horaautomatica DESC
+LIMIT 50;";
+
 $result = $mysqli->query($sql);
 
 $favicon = BASE_URL . "/img/favicon.ico";
@@ -46,6 +56,11 @@ $jsUrl = BASE_URL . "/api/LTYregistros/ltyRegistros.js?v=" . time();
 </head>
 
 <body>
+  <div class="datos-cabecera">
+    <h1 id="cliente-nombre" data-cliente="<?= htmlspecialchars($cliente) ?>">🎛️ Panel de <?= htmlspecialchars($cliente) ?></h1>
+    <p id="cliente-id" data-id="<?= "mc" . $clienteId . "000" ?>">🔍 Herramientas activas para la base ID: <?= "mc" . $clienteId . "000" ?></p>
+    ⚙️ Factum Admin Panel - v1.0 © <?= date('Y') ?>
+  </div>
   <h1>🧾 Últimos 50 Registros de LTYregistrocontrol</h1>
   <input type="text" id="registroSearch" placeholder="🔍 Buscar por Pedido" />
 
@@ -83,12 +98,12 @@ $jsUrl = BASE_URL . "/api/LTYregistros/ltyRegistros.js?v=" . time();
           <td><?= htmlspecialchars($row['supervisor']) ?></td>
           <td><?= htmlspecialchars($row['observacion']) ?></td>
           <td><?= htmlspecialchars($row['imagenes']) ?></td>
-          <td><?= htmlspecialchars($row['idLTYcliente']) ?></td>
+          <td><?= htmlspecialchars($dbname) ?></td>
           <td><?= htmlspecialchars($row['hora']) ?></td>
           <td>
             <div class="json-wrapper">
               <span class="json-toggle">➕ newJSON</span>
-              <div class="json-container hidden" data-json='<?= htmlspecialchars($row['newJSON'], ENT_QUOTES) ?>'></div>
+              <div class="json-container hidden" data-json='<?= htmlspecialchars($row['objJSON'], ENT_QUOTES) ?>'></div>
             </div>
           </td>
         </tr>

@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once dirname(__DIR__) . '/config/config.php';
+require_once dirname(__DIR__) . '/private/config/config.php';
 /** @var string $baseUrl */
 $baseUrl = BASE_URL;
 if (!isset($_SESSION['superadmin_authenticated'])) {
@@ -50,8 +50,8 @@ if (!isset($_SESSION['superadmin_authenticated'])) {
     const select = document.getElementById('clienteSelect');
     const btn = document.getElementById('btnContinuar');
 
-    fetch('https://factumconsultora.com/scg-mccain/models/log.json')
-      // fetch("https://sadmin.factumconsultora.com/api/proxy.php?file=models/log.json")
+    // fetch('https://factumconsultora.com/scg-mccain/models/log.json')
+    fetch("https://sadmin.factumconsultora.com/api/proxy.php?file=models/log.json")
       .then(res => res.json())
       .then(data => {
         data.plantas.forEach(p => {

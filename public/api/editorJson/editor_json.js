@@ -320,7 +320,9 @@ async function cargarJson() {
   try {
     if (isRemote && remoteUrl) {
       const timestamp = new Date().getTime();
-      const res = await fetch(`${remoteUrl}?_=${timestamp}`, {
+      const ruta = `${remoteUrl}?_=${timestamp}`;
+
+      const res = await fetch(ruta, {
         cache: 'no-store',
       });
       jsonData = await res.json();

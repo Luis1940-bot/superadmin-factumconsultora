@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../config/auth_token.php';
+require_once __DIR__ . '/private/config/auth_token.php';
 
 header('Content-Type: application/json');
 

@@ -107,6 +107,11 @@ th {
   color: #000;
 }
 
+.datos-cabecera {
+  text-align: center;
+  padding: 2rem;
+}
+
 @media (max-width: 768px) {
   .flex-container {
     flex-direction: column;

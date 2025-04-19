@@ -1,10 +1,10 @@
 <?php
 session_start();
-require_once dirname(__DIR__) . '/config/config.php';
+require_once dirname(__DIR__) . '/private/config/config.php';
 /** @var string $baseDir */
 $baseDir = BASE_DIR;
 
-require_once dirname(__DIR__) . '/config/auth_token.php';
+require_once dirname(__DIR__) . '/private/config/auth_token.php';
 
 $favicon = BASE_URL . "/img/favicon.ico";
 $cssUrl = BASE_URL . "/css/hacker-style.css?v=" . time();

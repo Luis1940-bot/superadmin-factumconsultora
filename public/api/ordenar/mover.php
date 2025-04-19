@@ -1,20 +1,22 @@
 <?php
 header('Content-Type: application/json; charset=utf-8');
-require_once dirname(__DIR__, 3) . '/lib/ErrorLogger.php';
-ErrorLogger::initialize(dirname(__DIR__, 3) . '/logs/logs/error.log');
-require_once dirname(__DIR__, 3) . '/config/config.php';
+require_once dirname(__DIR__, 3) . '/private/lib/ErrorLogger.php';
+ErrorLogger::initialize(dirname(__DIR__, 3) . '/private/logs/logs/error.log');
+require_once dirname(__DIR__, 3) . '/private/config/config.php';
 
 $baseDir = BASE_DIR;
 include_once $baseDir . "/config/datos_base.php";
 
 $input = json_decode(file_get_contents('php://input'), true);
 // error_log("JSON recibido: " . file_get_contents('php://input'));
-
-// $input = '{"idLTYcontrol":"7804","nuevoOrden":29}';
+// $input = '{"idLTYcontrol":"5416","nuevoOrden":3,"dbId":"mc1000"}';
 // $input = json_decode($input, true);
+// var_dump($input);
+// exit;
+
 $id = intval($input['idLTYcontrol'] ?? 0);
 $nuevo = intval($input['nuevoOrden'] ?? 0);
-
+$dbname = $input['dbId'] ?? 0;
 
 
 if (!$id || !$nuevo) {

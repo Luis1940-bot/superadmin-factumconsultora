@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once dirname(__DIR__) . '/config/config.php';
+require_once dirname(__DIR__) . '/private/config/config.php';
 /** @var string $baseUrl */
 $baseUrl = BASE_URL;
 
@@ -16,6 +16,9 @@ if (!isset($_SESSION['selected_client_id'])) {
 
 $cliente = $_SESSION['selected_client_name'];
 $clienteId = $_SESSION['selected_client_id'];
+$favicon = BASE_URL . "/img/favicon.ico";
+$cssUrl = BASE_URL . "/css/dashboard.css?v=" . time();
+$jsUrl = BASE_URL . "/js/hacker-login.js?v=" . time();
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -24,13 +27,13 @@ $clienteId = $_SESSION['selected_client_id'];
   <meta charset="UTF-8">
   <title>Dashboard - <?= htmlspecialchars($cliente) ?></title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="css/dashboard.css?v=<?= time(); ?>">
-  <link rel='shortcut icon' type='image/x-icon' href='<?php echo $baseUrl ?>/img/favicon.ico'>
+  <link rel="stylesheet" href="<?= $cssUrl ?>">
+  <link rel="icon" href="<?= $favicon ?>" type="image/x-icon">
 </head>
 
 <body>
   <h1 id="cliente-nombre" data-cliente="<?= htmlspecialchars($cliente) ?>">🎛️ Panel de <?= htmlspecialchars($cliente) ?></h1>
-  <p id="cliente-id" data-id="<?= $clienteId ?>">🔍 Herramientas activas para la organización ID: <?= $clienteId ?></p>
+  <p id="cliente-id" data-id="<?= "mc" . $clienteId . "000" ?>">🔍 Herramientas activas para la base ID: <?= "mc" . $clienteId . "000" ?></p>
   ⚙️ Factum Admin Panel - v1.0 © <?= date('Y') ?>
   <div class="button-group">
     <div class="div-sadmin-buttons" id="div-sadmin-buttons">
@@ -49,7 +52,7 @@ $clienteId = $_SESSION['selected_client_id'];
 
   </div>
 
-  <script type="module" src="js/dashboard.js?v=<?= time(); ?>"></script>
+  <script src="js/dashboard.js?v=<?= time(); ?>" type="module"></script>
 
 
 </body>

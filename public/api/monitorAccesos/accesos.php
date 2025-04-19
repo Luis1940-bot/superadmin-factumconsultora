@@ -1,4 +1,5 @@
 <?php
+session_start();
 header('Content-Type: text/html;charset=utf-8');
 $nonce = base64_encode(random_bytes(16));
 header("Content-Security-Policy: default-src 'self'; img-src 'self' data: https: example.com; script-src 'self' 'nonce-$nonce' cdn.example.com; style-src 'self' 'nonce-$nonce' cdn.example.com; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests;");
@@ -10,12 +11,15 @@ header("Access-Control-Allow-Origin: https://factumconsultora.com");
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
 header("Access-Control-Allow-Credentials: true");
-require_once dirname(__DIR__, 3) . '/lib/ErrorLogger.php';
-ErrorLogger::initialize(dirname(__DIR__, 3) . '/logs/logs/error.log');
-require_once dirname(__DIR__, 3) . '/config/config.php';
+require_once dirname(__DIR__, 3) . '/private/lib/ErrorLogger.php';
+ErrorLogger::initialize(dirname(__DIR__, 3) . '/private/logs/logs/error.log');
+require_once dirname(__DIR__, 3) . '/private/config/config.php';
 
 $baseDir = BASE_DIR;
 include_once $baseDir . "/config/datos_base.php";
+$cliente = $_SESSION['selected_client_name'];
+$clienteId = $_SESSION['selected_client_id'];
+$dbname = $_GET['id'];
 
 $favicon = BASE_URL . "/img/favicon.ico";
 $cssUrl = BASE_URL . "/api/monitorAccesos/accesos.css?v=" . time();
@@ -32,6 +36,11 @@ $jsUrl = BASE_URL . "/api/monitorAccesos/accesos.js?v=" . time();
 </head>
 
 <body>
+  <div class="datos-cabecera">
+    <h1 id="cliente-nombre" data-cliente="<?= htmlspecialchars($cliente) ?>">🎛️ Panel de <?= htmlspecialchars($cliente) ?></h1>
+    <p id="cliente-id" data-id="<?= "mc" . $clienteId . "000" ?>">🔍 Herramientas activas para la base ID: <?= "mc" . $clienteId . "000" ?></p>
+    ⚙️ Factum Admin Panel - v1.0 © <?= date('Y') ?>
+  </div>
   <h1>🔐 Accesos al Sistema</h1>
   <input type="text" id="searchInput" placeholder="Buscar por IP, email o planta" />
 

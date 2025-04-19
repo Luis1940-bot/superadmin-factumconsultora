@@ -131,7 +131,10 @@ button:active {
   display: block;
   animation: fadeInModal 0.4s ease-in-out;
 }
-
+.datos-cabecera {
+  text-align: center;
+  padding: 2rem;
+}
 @keyframes fadeInModal {
   from {
     opacity: 0;

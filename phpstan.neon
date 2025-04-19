@@ -1,0 +1,17 @@
+parameters:
+    level: max
+    treatPhpDocTypesAsCertain: true
+    bootstrapFiles:
+        - vendor/autoload.php
+        - config.php  # Ajusta la ruta según la ubicación de tu config.php 
+    ignoreErrors:
+        - '#Constant BASE_URL not found#'
+        - '#Constant SOME_OTHER_CONSTANT not found#'
+        - '#Instantiated class ErrorLogger not found#'
+        - '#Call to static method initialize\(\) on an unknown class ErrorLogger.#'
+        - '#argument.type#'
+        - '#Call to static method customExceptionHandler on an unknown class ErrorLogger#'
+        - '#Empty array passed to foreach#'
+        - '#Variable \$emails in empty\(\) always exists and is always falsy.#'
+
+

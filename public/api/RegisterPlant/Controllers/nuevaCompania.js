@@ -1,4 +1,4 @@
-import baseUrl from '../../../config.js';
+import baseUrl from '/private/config/config.js';
 
 const SERVER = baseUrl;
 

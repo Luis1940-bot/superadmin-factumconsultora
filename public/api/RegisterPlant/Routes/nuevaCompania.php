@@ -3,7 +3,7 @@
 // ini_set('display_startup_errors', '1');
 // error_reporting(E_ALL);
 mb_internal_encoding('UTF-8');
-require_once dirname(dirname(dirname(dirname(__DIR__)))) . '/lib/ErrorLogger.php';
+require_once dirname(dirname(dirname(dirname(__DIR__)))) . '/private/lib/ErrorLogger.php';
 ErrorLogger::initialize(dirname(dirname(dirname(dirname(__DIR__)))) . '/logs/error.log');
 
 /** 
@@ -24,10 +24,10 @@ if (isset($_SESSION['timezone']) && is_string($_SESSION['timezone'])) {
 function addCompania(array $objeto): array
 {
   try {
-    require_once dirname(dirname(dirname(dirname(__DIR__)))) . '/config/config.php';
+    require_once dirname(dirname(dirname(dirname(__DIR__)))) . '/private/config/config.php';
     /** @var string $baseDir */
     $baseDir = BASE_DIR;
-    include_once $baseDir . "/config/datos_base.php";
+    include_once $baseDir . "/private/config/datos_base.php";
     /** @var string $charset */
     /** @var string $dbname */
     /** @var string $host */

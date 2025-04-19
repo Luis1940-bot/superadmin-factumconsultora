@@ -1,72 +1,74 @@
 import { mostrarMensaje } from '../../js/modules/ui/alerts.js';
 import getConfig from '../../js/modules/utils/get-config.js';
 
-document.addEventListener('DOMContentLoaded', async () => {
-  // 🔄 Cargar registros duplicados al iniciar
-  try {
-    const res = await fetch(window.location.pathname, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-    });
+// document.addEventListener('DOMContentLoaded', async () => {
+//   // 🔄 Cargar registros duplicados al iniciar
+//   try {
+//     // const dbId = document.getElementById('cliente-id')?.dataset.id;
+//     const res = await fetch(window.location.pathname, {
+//       // const res = await fetch(`${window.location.pathname}?id=${dbId}`, {
+//       method: 'POST',
+//       headers: { 'Content-Type': 'application/json' },
+//     });
 
-    const { success, data } = await res.json();
+//     const { success, data } = await res.json();
 
-    if (!success || !Array.isArray(data) || data.length === 0) {
-      mostrarMensaje('No se encontraron controles repetidos.', 'info');
-      return;
-    }
+//     if (!success || !Array.isArray(data) || data.length === 0) {
+//       mostrarMensaje('No se encontraron controles repetidos.', 'info');
+//       return;
+//     }
 
-    const tbody = document.querySelector('#dataTable tbody');
-    tbody.innerHTML = '';
-    data.forEach(async (row) => {
-      // eslint-disable-next-line no-use-before-define
-      const nuevoCodigo = await generarCodigoAlfabetico(
-        row.nombre_reporte,
-        row.orden,
-      );
+//     const tbody = document.querySelector('#dataTable tbody');
+//     tbody.innerHTML = '';
+//     data.forEach(async (row) => {
+//       // eslint-disable-next-line no-use-before-define
+//       const nuevoCodigo = await generarCodigoAlfabetico(
+//         row.nombre_reporte,
+//         row.orden,
+//       );
 
-      const tr = document.createElement('tr');
+//       const tr = document.createElement('tr');
 
-      tr.innerHTML = `
-        <td>${row.control}</td>
-        <td>${row.idLTYcontrol}</td>
-        <td>${row.idLTYreporte}</td>
-        <td>${row.nombre_reporte}</td>
-        <td>${row.orden}</td>
-        <td>${nuevoCodigo}</td>
-        <td>
-          <button class="copy-btn">📋 Copiar</button>
-          <button class="update-btn"
-            data-idltycontrol="${row.idLTYcontrol}"
-            data-nuevocodigo="${nuevoCodigo}">🔄 Actualizar</button>
-          <button class="update-all-btn"
-            data-idltyreporte="${row.idLTYreporte}">🔄 Todo</button>
-        </td>
-      `;
+//       tr.innerHTML = `
+//         <td>${row.control}</td>
+//         <td>${row.idLTYcontrol}</td>
+//         <td>${row.idLTYreporte}</td>
+//         <td>${row.nombre_reporte}</td>
+//         <td>${row.orden}</td>
+//         <td>${nuevoCodigo}</td>
+//         <td>
+//           <button class="copy-btn">📋 Copiar</button>
+//           <button class="update-btn"
+//             data-idltycontrol="${row.idLTYcontrol}"
+//             data-nuevocodigo="${nuevoCodigo}">🔄 Actualizar</button>
+//           <button class="update-all-btn"
+//             data-idltyreporte="${row.idLTYreporte}">🔄 Todo</button>
+//         </td>
+//       `;
 
-      tbody.appendChild(tr);
-    });
+//       tbody.appendChild(tr);
+//     });
 
-    // Reasignar eventos
-    // eslint-disable-next-line no-use-before-define
-    asignarEventos();
-  } catch (error) {
-    console.error('❌ Error al cargar datos:', error);
-    mostrarMensaje('Error al obtener los registros.', 'error');
-  }
+//     // Reasignar eventos
+//     // eslint-disable-next-line no-use-before-define
+//     asignarEventos();
+//   } catch (error) {
+//     console.error('❌ Error al cargar datos:', error);
+//     mostrarMensaje('Error al obtener los registros.', 'error');
+//   }
 
-  // Evento cerrar
-  const cerrarBtn = document.getElementById('cerrarBtn');
-  if (cerrarBtn) {
-    cerrarBtn.addEventListener('click', () => {
-      if (window.close) {
-        window.close();
-      } else {
-        mostrarMensaje('Cerrá esta pestaña manualmente.', 'info');
-      }
-    });
-  }
-});
+//   // Evento cerrar
+//   const cerrarBtn = document.getElementById('cerrarBtn');
+//   if (cerrarBtn) {
+//     cerrarBtn.addEventListener('click', () => {
+//       if (window.close) {
+//         window.close();
+//       } else {
+//         mostrarMensaje('Cerrá esta pestaña manualmente.', 'info');
+//       }
+//     });
+//   }
+// });
 
 function asignarEventos() {
   document.querySelectorAll('.update-btn').forEach((button) => {
@@ -266,3 +268,93 @@ async function generarCodigoAlfabetico(rep, ord) {
   // Formar el código final de 15 caracteres
   return (codigoBase + ordenStr + hash).substring(0, 15);
 }
+
+async function cargarRegistros() {
+  const dbId = document.getElementById('cliente-id')?.dataset.id;
+
+  if (!dbId) {
+    mostrarMensaje('No se pudo determinar la base de datos', 'error');
+    return;
+  }
+
+  try {
+    const res = await fetch(window.location.pathname, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id: dbId }), // MANDAMOS EL ID DE BASE
+    });
+
+    const raw = await res.text();
+
+    let json;
+    try {
+      json = JSON.parse(raw);
+    } catch (err) {
+      console.error('No se pudo parsear JSON:', raw);
+      mostrarMensaje('Error inesperado al obtener los registros.', 'error');
+      return;
+    }
+
+    const { success, data } = json;
+
+    if (!success || !Array.isArray(data) || data.length === 0) {
+      mostrarMensaje('No se encontraron controles repetidos.', 'info');
+      return;
+    }
+    const tbody = document.querySelector('#dataTable tbody');
+    tbody.innerHTML = '';
+
+    const filas = await Promise.all(
+      data.map(async (row) => {
+        const nuevoCodigo = await generarCodigoAlfabetico(
+          row.nombre_reporte,
+          row.orden,
+        );
+
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+      <td>${row.control}</td>
+      <td>${row.idLTYcontrol}</td>
+      <td>${row.idLTYreporte}</td>
+      <td>${row.nombre_reporte}</td>
+      <td>${row.orden}</td>
+      <td>${nuevoCodigo}</td>
+      <td>
+        <button class="copy-btn">📋 Copiar</button>
+        <button class="update-btn"
+          data-idltycontrol="${row.idLTYcontrol}"
+          data-nuevocodigo="${nuevoCodigo}">🔄 Actualizar</button>
+        <button class="update-all-btn"
+          data-idltyreporte="${row.idLTYreporte}">🔄 Todo</button>
+      </td>
+    `;
+        return tr;
+      }),
+    );
+
+    filas.forEach((tr) => tbody.appendChild(tr));
+
+    asignarEventos();
+  } catch (error) {
+    console.error('❌ Error al cargar datos:', error);
+    mostrarMensaje('Error al obtener los registros.', 'error');
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const cargarBtn = document.getElementById('btnCargar');
+  if (cargarBtn) {
+    cargarBtn.addEventListener('click', cargarRegistros);
+  }
+
+  const cerrarBtn = document.getElementById('cerrarBtn');
+  if (cerrarBtn) {
+    cerrarBtn.addEventListener('click', () => {
+      if (window.close) {
+        window.close();
+      } else {
+        mostrarMensaje('Cerrá esta pestaña manualmente.', 'info');
+      }
+    });
+  }
+});

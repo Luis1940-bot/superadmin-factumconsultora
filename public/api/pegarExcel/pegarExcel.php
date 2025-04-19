@@ -1,5 +1,8 @@
 <?php
+session_start();
 header('Content-Type: text/html;charset=utf-8');
+
+// Seguridad (CSP, HSTS, etc.)
 $nonce = base64_encode(random_bytes(16));
 header("Content-Security-Policy: default-src 'self'; img-src 'self' data: https: example.com; script-src 'self' 'nonce-$nonce' cdn.example.com; style-src 'self' 'nonce-$nonce' cdn.example.com; object-src 'none'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests;");
 header("Strict-Transport-Security: max-age=31536000; includeSubDomains; preload");
@@ -11,70 +14,23 @@ header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
 header("Access-Control-Allow-Credentials: true");
 
-require_once dirname(__DIR__, 3) . '/lib/ErrorLogger.php';
-ErrorLogger::initialize(dirname(__DIR__, 3) . '/logs/logs/error.log');
-require_once dirname(__DIR__, 3) . '/config/config.php';
+// Config & Logging
+require_once dirname(__DIR__, 3) . '/private/lib/ErrorLogger.php';
+require_once dirname(__DIR__, 3) . '/private/config/config.php';
+ErrorLogger::initialize(dirname(__DIR__, 3) . '/private/logs/logs/error.log');
 
+// URLs
 $baseDir = BASE_DIR;
 include_once $baseDir . "/config/datos_base.php";
 
-function generarCodigoAlfabetico(string $reporte, int $orden): string
-{
-  $reporte = mb_convert_encoding($reporte, 'UTF-8', mb_detect_encoding($reporte, 'UTF-8, ISO-8859-1, ISO-8859-15', true));
-  $reporte = preg_replace('/[^\p{L}\p{N}\s-]/u', '', $reporte);
-  $palabras = preg_split('/[\s-]+/u', $reporte);
-  $codigoBase = '';
-  foreach ($palabras as $palabra) {
-    $codigoBase .= strtolower(mb_substr($palabra, 0, 2, 'UTF-8'));
-  }
-  $codigoBase = substr($codigoBase, 0, 6);
-  $ordenStr = str_pad((int) $orden, 4, "0", STR_PAD_LEFT);
-  $hash = substr(md5($reporte . $orden), 0, 5);
-  return strtolower(substr($codigoBase . $ordenStr . $hash, 0, 15));
-}
-
-$idLTYreporte = isset($_GET['idLTYreporte']) ? intval($_GET['idLTYreporte']) : 0;
-$nombreReporte = "Desconocido";
-$ultimoOrden = 0;
-$datos = [];
-$nombreCliente = "Desconocido";
-$idCliente = 0;
-
-if ($idLTYreporte > 0) {
-  $mysqli = new mysqli($host, $user, $password, $dbname, $port);
-  if ($mysqli->connect_error) {
-    die("Error de conexión: " . $mysqli->connect_error);
-  }
-  mysqli_set_charset($mysqli, "utf8mb4");
-
-  $query = "
-    SELECT c.idLTYcontrol, c.control, c.detalle, c.tipodato, c.tpdeobserva, c.orden, r.nombre AS nombre_reporte, c.idLTYcliente AS id_cliente, t.cliente AS nombre_cliente
-    FROM LTYcontrol c
-    INNER JOIN LTYreporte r ON c.idLTYreporte = r.idLTYreporte
-    INNER JOIN LTYcliente t ON c.idLTYcliente = t.idLTYcliente
-    WHERE c.idLTYreporte = $idLTYreporte
-    ORDER BY c.orden ASC";
-
-  $result = $mysqli->query($query);
-
-  if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-      $datos[] = $row;
-      $ultimoOrden = max($ultimoOrden, $row['orden']);
-      $nombreReporte = $row['nombre_reporte'];
-      $nombreCliente = $row['nombre_cliente'];
-      $idCliente = $row['id_cliente'];
-    }
-  } else {
-    error_log("⚠️ No hay registros para idLTYreporte: $idLTYreporte");
-  }
-
-  $mysqli->close();
-}
 $cssUrl = BASE_URL . "/api/pegarExcel/pegarExcel.css?v=" . time();
 $jsUrl = BASE_URL . "/api/pegarExcel/pegarExcel.js?v=" . time();
 $favicon = BASE_URL . "/img/favicon.ico";
 $crypto = BASE_URL . "/api/pegarExcel/crypto-js.min.js?v=" . time();
+
+// Cliente desde sesión
+$cliente = $_SESSION['selected_client_name'] ?? 'Desconocido';
+$clienteId = $_SESSION['selected_client_id'] ?? 0;
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -88,23 +44,28 @@ $crypto = BASE_URL . "/api/pegarExcel/crypto-js.min.js?v=" . time();
 </head>
 
 <body>
+  <div class="datos-cabecera">
+    <h1 id="cliente-nombre" data-cliente="<?= htmlspecialchars($cliente) ?>">🎛️ Panel de <?= htmlspecialchars($cliente) ?></h1>
+    <p id="cliente-id" data-id="<?= "mc" . $clienteId . "000" ?>">🔍 Herramientas activas para la base ID: <?= "mc" . $clienteId . "000" ?></p>
+    ⚙️ Factum Admin Panel - v1.0 © <?= date('Y') ?>
+  </div>
+
   <div class="container">
     <h2>📋 Pegar Datos desde Excel</h2>
-
-    <form id="reporteForm" method="GET">
+    <form id="reporteForm">
       <label for="idLTYreporte">Ingrese ID del Reporte:</label>
-      <input type="number" id="idLTYreporte" name="idLTYreporte" value="<?= htmlspecialchars($idLTYreporte) ?>" />
+      <input type="number" id="idLTYreporte" name="idLTYreporte" />
       <button type="submit" class="btn">Buscar</button>
     </form>
 
-    <h3>📑 Reporte: <?= htmlspecialchars($nombreReporte) ?></h3>
-    <div class="cliente-info">
-      <h3 id="idCliente" data-id="<?= htmlspecialchars($idCliente) ?>">ID Cliente: <?= htmlspecialchars($idCliente) ?></h3>
+    <h3>📑 Reporte: <span id="reporteNombre">-</span></h3>
 
-      <h3 id="nombreCliente">Cliente: <?= htmlspecialchars($nombreCliente) ?></h3>
+    <div class="cliente-info">
+      <!-- <h3 id="idCliente">ID Cliente: <span>-</span></h3> -->
+      <!-- <h3 id="nombreCliente">Cliente: <span>-</span></h3> -->
     </div>
 
-    <h4>🔢 Última Observación: <?= $ultimoOrden ?></h4>
+    <h4>🔢 Última Observación: <span id="ultimoOrden">-</span></h4>
 
     <h3>📚 Registros Existentes</h3>
     <table id="tablaExistente">
@@ -118,18 +79,7 @@ $crypto = BASE_URL . "/api/pegarExcel/crypto-js.min.js?v=" . time();
           <th>Orden</th>
         </tr>
       </thead>
-      <tbody>
-        <?php foreach ($datos as $dato): ?>
-          <tr>
-            <td><?= $dato['idLTYcontrol'] ?></td>
-            <td><?= $dato['control'] ?></td>
-            <td><?= $dato['detalle'] ?></td>
-            <td><?= $dato['tipodato'] ?></td>
-            <td><?= $dato['tpdeobserva'] ?></td>
-            <td><?= $dato['orden'] ?></td>
-          </tr>
-        <?php endforeach; ?>
-      </tbody>
+      <tbody></tbody>
     </table>
 
     <h3>🆕 Nuevos Datos</h3>
@@ -162,13 +112,13 @@ $crypto = BASE_URL . "/api/pegarExcel/crypto-js.min.js?v=" . time();
     <hr>
     <button class="btn" id="guardarBtn">Guardar en Base de Datos</button>
   </div>
+
   <div class="div-sadmin-buttons">
     <button type="button" id="cerrarBtn" class="button-selector-sadmin">🚪 Cerrar</button>
   </div>
 
   <script nonce="<?= $nonce ?>">
-    window.ultimoOrdenJS = <?= json_encode($ultimoOrden) ?>;
-    window.nombreReporteJS = <?= json_encode($nombreReporte) ?>;
+    window.baseCliente = "<?= "mc" . $clienteId . "000" ?>";
   </script>
   <script src="<?= $crypto ?>"></script>
   <script nonce="<?= $nonce ?>" type="module" src="<?= $jsUrl ?>"></script>
@@ -176,9 +126,7 @@ $crypto = BASE_URL . "/api/pegarExcel/crypto-js.min.js?v=" . time();
     document.addEventListener('DOMContentLoaded', () => {
       const cerrarBtn = document.getElementById('cerrarBtn');
       if (cerrarBtn) {
-        cerrarBtn.addEventListener('click', () => {
-          window.close();
-        });
+        cerrarBtn.addEventListener('click', () => window.close());
       }
     });
   </script>

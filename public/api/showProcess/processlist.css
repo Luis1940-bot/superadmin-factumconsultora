@@ -184,6 +184,10 @@ td[title] {
   font-weight: bold;
   text-align: center;
 }
+.datos-cabecera {
+  text-align: center;
+  padding: 2rem;
+}
 /* =========================
    Responsive
    ========================= */

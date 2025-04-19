@@ -2,10 +2,10 @@
 header('Access-Control-Allow-Origin: *'); // Permitir acceso externo
 header('Content-Type: application/json; charset=utf-8');
 
-require_once dirname(__DIR__, 3) . '/config/config.php';
+require_once dirname(__DIR__, 3) . '/private/config/config.php';
 $baseDir = BASE_DIR;
 include_once $baseDir . "/config/datos_base.php";
-
+$dbname = $_GET['dbName'];
 $mysqli = new mysqli($host, $user, $password, $dbname, $port);
 mysqli_set_charset($mysqli, "utf8mb4");
 

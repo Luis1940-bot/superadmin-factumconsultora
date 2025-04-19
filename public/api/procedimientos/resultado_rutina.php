@@ -1,13 +1,16 @@
 <?php
+session_start();
 header('Content-Type: text/html;charset=utf-8');
 
-require_once dirname(__DIR__, 3) . '/config/config.php';
+require_once dirname(__DIR__, 3) . '/private/config/config.php';
 $baseDir = BASE_DIR;
 include_once $baseDir . "/config/datos_base.php";
+$dbname = $_GET['dbName'];
 
 $mysqli = new mysqli($host, $user, $password, $dbname, $port);
 mysqli_set_charset($mysqli, "utf8mb4");
-
+$cliente = $_SESSION['selected_client_name'];
+$clienteId = $_SESSION['selected_client_id'];
 $nombre = $_GET['nombre'] ?? '';
 $tipo = $_GET['tipo'] ?? 'PROCEDURE';
 $params = $_GET['params'] ?? [];
@@ -26,6 +29,11 @@ $favicon = BASE_URL . "/img/favicon.ico";
 </head>
 
 <body class="hacker-mode">
+  <div class="datos-cabecera">
+    <h1 id="cliente-nombre" data-cliente="<?= htmlspecialchars($cliente) ?>">🎛️ Panel de <?= htmlspecialchars($cliente) ?></h1>
+    <p id="cliente-id" data-id="<?= "mc" . $clienteId . "000" ?>">🔍 Herramientas activas para la base ID: <?= "mc" . $clienteId . "000" ?></p>
+    ⚙️ Factum Admin Panel - v1.0 © <?= date('Y') ?>
+  </div>
   <script>
     function exportarCSV() {
       const tabla = document.querySelector("table");

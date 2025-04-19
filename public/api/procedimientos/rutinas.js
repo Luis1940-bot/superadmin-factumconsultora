@@ -71,6 +71,7 @@ document
 document.querySelectorAll('.btn-parametros').forEach((btn) => {
   btn.addEventListener('click', () => {
     const { id } = btn.dataset;
+
     fetch(`ver_parametros.php?id=${encodeURIComponent(id)}`)
       .then((res) => res.json())
       .then((data) => mostrarModalParametros(id, data))
@@ -92,6 +93,7 @@ function mostrarFormularioTest(nombre, tipo, parametros = []) {
 
   parametros.forEach((p, i) => {
     const paramName = p.PARAMETER_NAME || `param${i}`;
+
     const type = (p.DATA_TYPE || '').toLowerCase();
     let inputType = 'text';
 
@@ -141,11 +143,14 @@ function mostrarFormularioTest(nombre, tipo, parametros = []) {
       const nombre2 = data.get('nombre');
       const tipo2 = data.get('tipo');
       const params = data.getAll('params[]');
-
+      const cadena = document.getElementById('cliente-id').textContent;
+      const match = cadena.match(/mc\d{4}/);
+      const dbName = match ? match[0] : null;
       // const queryParams = new URLSearchParams({ nombre2, tipo2 });
       const queryParams = new URLSearchParams({
         nombre: nombre2,
         tipo: tipo2,
+        dbName,
       });
 
       params.forEach((p) => queryParams.append('params[]', p));
@@ -159,11 +164,34 @@ document.querySelectorAll('.btn-test').forEach((btn) => {
   btn.addEventListener('click', () => {
     const { id } = btn.dataset;
     const { tipo } = btn.dataset;
+    const cadena = document.getElementById('cliente-id').textContent;
+    const match = cadena.match(/mc\d{4}/);
+    const dbName = match ? match[0] : null;
 
-    fetch(`ver_parametros.php?id=${encodeURIComponent(id)}`)
-      .then((res) => res.json())
-      .then((data) => mostrarFormularioTest(id, tipo, data.params))
+    // fetch(`ver_parametros.php?id=${encodeURIComponent(id)}`)
+    fetch(
+      `ver_parametros.php?id=${encodeURIComponent(id)}&dbName=${encodeURIComponent(dbName)}`,
+    )
+      .then((res) => {
+        return res.text(); // <-- importante
+      })
+      .then((rawText) => {
+        let data;
+        try {
+          data = JSON.parse(rawText);
+
+          mostrarFormularioTest(id, tipo, data.params);
+        } catch (err) {
+          console.error('❌ Error al parsear JSON:', err);
+          mostrarMensaje('❌ La respuesta no es JSON válido', 'error');
+        }
+      })
       .catch(() => mostrarMensaje('❌ Error al preparar ejecución', 'error'));
+
+    // fetch(`ver_parametros.php?id=${encodeURIComponent(id)}`)
+    //   .then((res) => res.json())
+    //   .then((data) => mostrarFormularioTest(id, tipo, data.params))
+    //   .catch(() => mostrarMensaje('❌ Error al preparar ejecución', 'error'));
   });
 });
 

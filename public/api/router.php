@@ -3,9 +3,9 @@ ob_start();
 mb_internal_encoding('UTF-8');
 
 // Config inicial
-require_once dirname(__DIR__, 2) . '/config/config.php';
-require_once dirname(__DIR__, 2) . '/lib/ErrorLogger.php';
-ErrorLogger::initialize(dirname(__DIR__, 2) . '/logs/error.log');
+require_once dirname(__DIR__, 2) . '/private/config/config.php';
+require_once dirname(__DIR__, 2) . '/private/lib/ErrorLogger.php';
+ErrorLogger::initialize(dirname(__DIR__, 2) . '/private/logs/error.log');
 
 // Zona horaria y sesión
 $httpHost = $_SERVER['HTTP_HOST'] ?? 'localhost';

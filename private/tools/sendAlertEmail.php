@@ -1,8 +1,8 @@
 <?php
-require_once realpath(__DIR__ . '/../lib/Mailer.php');
+require_once realpath(__DIR__ . '/private/lib/Mailer.php');
 
-require_once dirname(__DIR__) . '/lib/ErrorLogger.php';
-ErrorLogger::initialize(dirname(__DIR__) . '/logs/error.log');
+require_once dirname(__DIR__) . '/private/lib/ErrorLogger.php';
+ErrorLogger::initialize(dirname(__DIR__) . '/private/logs/error.log');
 header('Content-Type: application/json; charset=utf-8');
 /** 
  * @var array{timezone?: string} $_SESSION 
@@ -25,7 +25,7 @@ if (
   exit;
 }
 
-$templatePath = realpath(__DIR__ . '/../lib/emails/nuevoCliente.html');
+$templatePath = realpath(__DIR__ . '/private/lib/emails/nuevoCliente.html');
 if (!$templatePath || !file_exists($templatePath)) {
   error_log("❌ Plantilla HTML no encontrada: nuevoCliente.html");
   echo json_encode(['success' => false, 'message' => 'Plantilla no encontrada']);

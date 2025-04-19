@@ -109,6 +109,9 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   btnGuardar?.addEventListener('click', async () => {
+    let dbName = document.getElementById('cliente-id').textContent;
+    const match = dbName.match(/mc\d{4}/);
+    dbName = match ? match[0] : null;
     const datos = {
       idusuario: form.querySelector('#edit_idusuario')?.value.trim(),
       nombre: form.querySelector('#edit_nombre')?.value.trim(),
@@ -122,6 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ?.value.trim(),
       idtipousuario: form.querySelector('#edit_idtipousuario')?.value,
       idLTYcliente: form.querySelector('#edit_idLTYcliente')?.value,
+      dbName,
     };
 
     if (
@@ -136,6 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     try {
       const { baseUrl } = await getConfig();
+
       const res = await fetch(`${baseUrl}/api/router.php`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

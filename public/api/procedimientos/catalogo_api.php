@@ -1,11 +1,13 @@
 <?php
-require_once dirname(__DIR__, 3) . '/config/config.php';
+session_start();
+require_once dirname(__DIR__, 3) . '/private/config/config.php';
 $baseDir = BASE_DIR;
 include_once $baseDir . "/config/datos_base.php";
-
+$dbname = $_GET['dbName'];
 $mysqli = new mysqli($host, $user, $password, $dbname, $port);
 mysqli_set_charset($mysqli, "utf8mb4");
-
+$cliente = $_SESSION['selected_client_name'];
+$clienteId = $_SESSION['selected_client_id'];
 $dbName = $dbname;
 $result = $mysqli->query("
   SELECT SPECIFIC_NAME, ROUTINE_TYPE 
@@ -26,6 +28,11 @@ $baseApi = BASE_URL . "/api/procedimientos/api_rutina.php";
 </head>
 
 <body class="hacker-mode">
+  <div class="datos-cabecera">
+    <h1 id="cliente-nombre" data-cliente="<?= htmlspecialchars($cliente) ?>">🎛️ Panel de <?= htmlspecialchars($cliente) ?></h1>
+    <p id="cliente-id" data-id="<?= "mc" . $clienteId . "000" ?>">🔍 Herramientas activas para la base ID: <?= "mc" . $clienteId . "000" ?></p>
+    ⚙️ Factum Admin Panel - v1.0 © <?= date('Y') ?>
+  </div>
   <h1>📚 Catálogo de Endpoints de Rutinas</h1>
 
   <table>

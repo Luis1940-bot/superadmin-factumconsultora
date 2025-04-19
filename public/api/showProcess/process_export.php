@@ -2,9 +2,9 @@
 header('Content-Type: text/csv; charset=utf-8');
 header('Content-Disposition: attachment; filename="processlist_export_' . date('Ymd_His') . '.csv"');
 
-require_once dirname(__DIR__, 3) . '/config/config.php';
+require_once dirname(__DIR__, 3) . '/private/config/config.php';
 $baseDir = BASE_DIR;
-include_once $baseDir . "/config/datos_base.php";
+include_once $baseDir . "/private/config/datos_base.php";
 
 $mysqli = new mysqli($host, $user, $password, $dbname, $port);
 if ($mysqli->connect_error) {

@@ -1,11 +1,13 @@
 <?php
-require_once dirname(__DIR__, 3) . '/config/config.php';
+session_start();
+require_once dirname(__DIR__, 3) . '/private/config/config.php';
 $baseDir = BASE_DIR;
 include_once $baseDir . "/config/datos_base.php";
-
+$dbname = $_GET['dbName'];
 $mysqli = new mysqli($host, $user, $password, $dbname, $port);
 $mysqli->set_charset("utf8mb4");
-
+$cliente = $_SESSION['selected_client_name'];
+$clienteId = $_SESSION['selected_client_id'];
 // Cargar nombres de rutinas para el selector
 $rutinas = $mysqli->query("
   SELECT SPECIFIC_NAME, ROUTINE_TYPE 
@@ -57,6 +59,11 @@ $rutinas = $mysqli->query("
 </head>
 
 <body class="hacker-mode">
+  <div class="datos-cabecera">
+    <h1 id="cliente-nombre" data-cliente="<?= htmlspecialchars($cliente) ?>">🎛️ Panel de <?= htmlspecialchars($cliente) ?></h1>
+    <p id="cliente-id" data-id="<?= "mc" . $clienteId . "000" ?>">🔍 Herramientas activas para la base ID: <?= "mc" . $clienteId . "000" ?></p>
+    ⚙️ Factum Admin Panel - v1.0 © <?= date('Y') ?>
+  </div>
   <h1>🧪 Editor Visual de Rutinas</h1>
 
   <form id="formEditor" class="editor-form">
@@ -98,11 +105,14 @@ $rutinas = $mysqli->query("
       const tipo = form.tipo.value;
       const formato = form.formato.value;
       const parametros = form.parametros.value.split(',').map(p => p.trim()).filter(Boolean);
-
+      const cadena = document.getElementById('cliente-id').textContent;
+      const match = cadena.match(/mc\d{4}/);
+      const dbName = match ? match[0] : null;
       const query = new URLSearchParams({
         nombre,
         tipo,
-        formato
+        formato,
+        dbName
       });
       parametros.forEach(p => query.append('params[]', p));
 

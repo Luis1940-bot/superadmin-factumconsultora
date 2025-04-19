@@ -177,6 +177,11 @@ button:active {
   animation: fadeInModal 0.4s ease-in-out;
 }
 
+.datos-cabecera {
+  text-align: center;
+  padding: 2rem;
+}
+
 /* Animación de entrada */
 @keyframes fadeInModal {
   from {

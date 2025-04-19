@@ -38,43 +38,6 @@ function renderGrafico(stats) {
   });
 }
 
-// async function cargarAccesos() {
-//   tabla.innerHTML = "<tr><td colspan='7'>Cargando...</td></tr>";
-//   const { baseUrl } = await getConfig();
-//   const url = `${baseUrl}/api/monitorAccesos/datos_accesos.php?_=${Date.now()}`;
-//   const res = await fetch(url, { cache: 'no-store' });
-//   const { data } = await res.json();
-
-//   tabla.innerHTML = '';
-
-//   const accesosPorUsuario = {};
-
-//   data.forEach((item) => {
-//     const tr = document.createElement('tr');
-//     tr.innerHTML = `
-//       <td>${item.fecha}</td>
-//       <td>${item.email}</td>
-//       <td>${item.planta}</td>
-//       <td>${item.ip}</td>
-//       <td title="${item.geo}">${item.geo.split('-')[0]}</td>
-//       <td>${item.navegador}</td>
-//       <td class="${item.estado === 'ok' ? 'success' : 'fail'}">${item.estado.toUpperCase()}</td>
-//     `;
-//     tabla.appendChild(tr);
-
-//     // Recuento para la gráfica
-//     const key = item.email;
-//     if (!accesosPorUsuario[key]) accesosPorUsuario[key] = { ok: 0, fail: 0 };
-//     item.estado === 'ok'
-//       ? accesosPorUsuario[key].ok++
-//       : accesosPorUsuario[key].fail++;
-//   });
-
-//   renderGrafico(accesosPorUsuario);
-// }
-
-// document.getElementById('recargarBtn').addEventListener('click', cargarAccesos);
-
 function mostrarIntentosSospechosos(data) {
   const tablaBruta = document.querySelector('#fuerzaBrutaTable tbody');
   tablaBruta.innerHTML = '';
@@ -112,8 +75,15 @@ async function cargarAccesos() {
   try {
     tabla.innerHTML = "<tr><td colspan='7'>Cargando...</td></tr>";
     const { baseUrl } = await getConfig();
-    const url = `${baseUrl}/api/monitorAccesos/datos_accesos.php?_=${Date.now()}`;
+    const cadena = document.getElementById('cliente-id').textContent;
+    const match = cadena.match(/mc\d{4}/);
+    const dbName = match ? match[0] : null;
+    const url = `${baseUrl}/api/monitorAccesos/datos_accesos.php?_=${Date.now()}&dbName=${encodeURIComponent(dbName)}`;
     const res = await fetch(url, { cache: 'no-store' });
+
+    // const dbName = match ? match[0] : null;
+    // const url = `${baseUrl}/api/monitorAccesos/datos_accesos.php?_=${Date.now()}`;
+    // const res = await fetch(url, { cache: 'no-store' });
     const json = await res.json();
     const { data } = json;
 

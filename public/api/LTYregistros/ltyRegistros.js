@@ -33,10 +33,8 @@ document.addEventListener('DOMContentLoaded', () => {
     toggle.addEventListener('click', () => {
       if (container.style.display === 'none') {
         try {
-          const parsed = JSON.parse(container.dataset.json);
-          const pretty = JSON.stringify(parsed, null, 2); // indent 2
-          container.textContent = pretty;
-          container.classList.add('json-tree');
+          const raw = container.dataset.json;
+          container.textContent = raw;
         } catch (e) {
           container.textContent = '❌ JSON inválido';
         }

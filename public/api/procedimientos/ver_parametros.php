@@ -1,9 +1,7 @@
 <?php
-// ver_parametros.php
-
-require_once dirname(__DIR__, 3) . '/config/config.php';
+require_once dirname(__DIR__, 3) . '/private/config/config.php';
 include_once BASE_DIR . "/config/datos_base.php";
-
+$dbname = $_GET['dbName'] ?? '';
 // Conexión a la base de datos
 $mysqli = new mysqli($host, $user, $password, $dbname, $port);
 if ($mysqli->connect_error) {

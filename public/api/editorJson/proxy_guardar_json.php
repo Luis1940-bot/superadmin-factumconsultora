@@ -1,7 +1,7 @@
 <?php
 header('Content-Type: application/json; charset=utf-8');
-require_once dirname(dirname(dirname(__DIR__))) . '/lib/ErrorLogger.php';
-ErrorLogger::initialize(dirname(dirname(dirname(__DIR__))) . '/logs/logs/error.log');
+require_once dirname(dirname(dirname(__DIR__))) . '/private/lib/ErrorLogger.php';
+ErrorLogger::initialize(dirname(dirname(dirname(__DIR__))) . '/private/logs/logs/error.log');
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
   http_response_code(405);
   echo json_encode(['success' => false, 'message' => 'Método no permitido']);

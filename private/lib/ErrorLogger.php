@@ -2,7 +2,7 @@
 
 class ErrorLogger
 {
-  private static string $logFile = __DIR__ . '/logs/error.log';
+  private static string $logFile = __DIR__ . '/private/logs/error.log';
 
   public static function initialize(?string $logFilePath = null): void
   {

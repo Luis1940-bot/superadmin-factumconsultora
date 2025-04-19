@@ -3,10 +3,10 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require_once dirname(__DIR__) . '/config/config.php';
+require_once dirname(__DIR__) . '/private/config/config.php';
 /** @var string $baseUrl */
 $baseUrl = BASE_DIR;
-require_once $baseUrl . '/vendor/autoload.php';
+require_once $baseUrl . '/private/vendor/autoload.php';
 
 class Mailer
 {
@@ -14,7 +14,7 @@ class Mailer
 
   public static function init(): void
   {
-    self::$config = require dirname(__DIR__) . '/config/mail.php';
+    self::$config = require dirname(__DIR__) . '/private/config/mail.php';
   }
 
 

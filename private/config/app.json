@@ -1,18 +1,8 @@
 {
   "Sad": [
     {
-      "name": "AuthUser",
-      "ruta": "api/AuthUser/auth.php",
-      "type": "popup"
-    },
-    {
       "name": "Ver Usuarios",
       "ruta": "api/usuarios/index.php",
-      "type": "popup"
-    },
-    {
-      "name": "RegisterPlant",
-      "ruta": "api/RegisterPlant/plant.php",
       "type": "popup"
     },
     {
@@ -36,18 +26,8 @@
       "type": "popup"
     },
     {
-      "name": "Corregir Registros",
-      "ruta": "api/corregirRegistros/get_records.php",
-      "type": "popup"
-    },
-    {
       "name": "Ver Logs",
       "ruta": "api/verLogs/visor_logs.php",
-      "type": "popup"
-    },
-    {
-      "name": "Forzar Reload",
-      "ruta": "api/recargaForzada/recarga-control.php",
       "type": "popup"
     },
     {

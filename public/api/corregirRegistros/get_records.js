@@ -11,10 +11,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     mensaje.className = '';
 
     try {
-      const url = `./get_records_api.php?_=${Date.now()}`;
+      const dbId = document.getElementById('cliente-id')?.dataset.id;
+      const url = `./get_records_api.php?id=${encodeURIComponent(dbId)}&_=${Date.now()}`;
       const response = await fetch(url, {
         method: 'GET',
-        cache: 'no-store',
         headers: {
           'Cache-Control': 'no-cache',
           Pragma: 'no-cache',

@@ -1,10 +1,10 @@
 <?php
-require_once dirname(__DIR__, 3) . '/config/config.php';
+require_once dirname(__DIR__, 3) . '/private/config/config.php';
 
 header('Content-Type: application/json');
 
 $baseDir = BASE_DIR;
-$jsonPath = $baseDir . '/config/app.json';
+$jsonPath = $baseDir . '/private/config/app.json';
 $data = file_get_contents('php://input');
 
 if (json_decode($data) !== null) {

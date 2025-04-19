@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once __DIR__ . '/../config/auth_token.php';
+require_once dirname(__DIR__) . '/private/config/auth_token.php';
 
 header('Content-Type: application/json');
 

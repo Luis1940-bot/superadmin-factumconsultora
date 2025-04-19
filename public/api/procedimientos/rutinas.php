@@ -1,4 +1,5 @@
 <?php
+session_start();
 header('Content-Type: text/html;charset=utf-8');
 $nonce = base64_encode(random_bytes(16));
 
@@ -12,19 +13,20 @@ header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
 header("Access-Control-Allow-Credentials: true");
 
-require_once dirname(__DIR__, 3) . '/lib/ErrorLogger.php';
-ErrorLogger::initialize(dirname(__DIR__, 3) . '/logs/logs/error.log');
-require_once dirname(__DIR__, 3) . '/config/config.php';
+require_once dirname(__DIR__, 3) . '/private/lib/ErrorLogger.php';
+ErrorLogger::initialize(dirname(__DIR__, 3) . '/private/logs/logs/error.log');
+require_once dirname(__DIR__, 3) . '/private/config/config.php';
 $baseDir = BASE_DIR;
 include_once $baseDir . "/config/datos_base.php";
-
+$dbname = $_GET['id'] ?? null;
 $mysqli = new mysqli($host, $user, $password, $dbname, $port);
 if ($mysqli->connect_error) {
   die("Error de conexión a la base de datos.");
 }
 mysqli_set_charset($mysqli, "utf8mb4");
+$cliente = $_SESSION['selected_client_name'];
+$clienteId = $_SESSION['selected_client_id'];
 
-$dbName = $dbname;
 $tipo = $_GET['tipo'] ?? 'PROCEDURE';
 $tipoLabel = $tipo === 'FUNCTION' ? 'Funciones' : 'Procedimientos';
 $buscar = $_GET['buscar'] ?? '';
@@ -34,7 +36,7 @@ $buscarCond = $buscar ? "AND SPECIFIC_NAME LIKE '%$buscar%'" : '';
 $query = "
   SELECT SPECIFIC_NAME, ROUTINE_TYPE, DTD_IDENTIFIER, CREATED, LAST_ALTERED, DEFINER, ROUTINE_COMMENT
   FROM information_schema.ROUTINES
-  WHERE ROUTINE_TYPE = '$tipo' AND ROUTINE_SCHEMA = '$dbName'
+  WHERE ROUTINE_TYPE = '$tipo' AND ROUTINE_SCHEMA = '$dbname'
   $buscarCond
   ORDER BY SPECIFIC_NAME ASC;
 ";
@@ -56,13 +58,18 @@ $favicon = BASE_URL . "/img/favicon.ico";
 </head>
 
 <body>
+  <div class="datos-cabecera">
+    <h1 id="cliente-nombre" data-cliente="<?= htmlspecialchars($cliente) ?>">🎛️ Panel de <?= htmlspecialchars($cliente) ?></h1>
+    <p id="cliente-id" data-id="<?= "mc" . $clienteId . "000" ?>">🔍 Herramientas activas para la base ID: <?= "mc" . $clienteId . "000" ?></p>
+    ⚙️ Factum Admin Panel - v1.0 © <?= date('Y') ?>
+  </div>
   <h1>⚙️ <?= $tipoLabel ?> en <?= htmlspecialchars($dbName) ?></h1>
 
   <div class="div-sadmin-buttons">
-    <a href="catalogo_api.php" target="_blank">
+    <a href="catalogo_api.php?dbName=<?= urlencode($dbname) ?>" target="_blank">
       <button class="button-selector-sadmin">📚 Ver Catálogo de API</button>
     </a>
-    <a href="editor_rutina.php" target="_blank">
+    <a href="editor_rutina.php?dbName=<?= urlencode($dbname) ?>" target="_blank">
       <button class="button-selector-sadmin">🧪 Editor Visual (Tipo Postman)</button>
     </a>
     <a href="?tipo=PROCEDURE"><button>🧱 Ver Procedimientos</button></a>
@@ -99,9 +106,12 @@ $favicon = BASE_URL . "/img/favicon.ico";
           <td><?= $row['CREATED'] ?></td>
           <td><?= $row['LAST_ALTERED'] ?></td>
           <td>
-            <a class="btn-ver" href="ver_rutina.php?tipo=<?= $row['ROUTINE_TYPE'] ?>&id=<?= urlencode($row['SPECIFIC_NAME']) ?>" target="_blank">
+            <a class="btn-ver"
+              href="ver_rutina.php?tipo=<?= $row['ROUTINE_TYPE'] ?>&id=<?= urlencode($row['SPECIFIC_NAME']) ?>&dbName=<?= urlencode($dbname) ?>"
+              target="_blank">
               👁 Ver
             </a>
+
             <button class="btn-parametros" data-id="<?= htmlspecialchars($row['SPECIFIC_NAME']) ?>">📋 Parámetros</button>
             <button class="btn-test" data-id="<?= htmlspecialchars($row['SPECIFIC_NAME']) ?>" data-tipo="<?= $row['ROUTINE_TYPE'] ?>">🧪 Ejecutar</button>
           </td>

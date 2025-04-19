@@ -100,6 +100,25 @@ th {
   color: #000;
 }
 
+.acciones-panel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin: 1.5rem auto;
+  flex-wrap: wrap;
+}
+
+#btnCargar {
+  padding: 10px 20px;
+  font-size: 1rem;
+  max-width: 200px;
+  text-align: center;
+}
+.datos-cabecera {
+  text-align: center;
+  padding: 2rem;
+}
 @media (max-width: 768px) {
   #searchInput {
     width: 90%;

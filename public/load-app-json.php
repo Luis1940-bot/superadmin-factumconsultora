@@ -1,5 +1,5 @@
 <?php
-require_once dirname(__DIR__) . '/config/config.php';
+require_once dirname(__DIR__) . '/private/config/config.php';
 /** @var string $baseUrl */
 $baseUrl = BASE_DIR;
 require_once $baseUrl . '/lib/ErrorLogger.php';

@@ -2,13 +2,19 @@
 header('Content-Type: application/json; charset=utf-8');
 
 // Inicializar logger
-require_once dirname(__DIR__, 3) . '/lib/ErrorLogger.php';
-ErrorLogger::initialize(dirname(__DIR__, 3) . '/logs/logs/error.log');
+require_once dirname(__DIR__, 3) . '/private/lib/ErrorLogger.php';
+ErrorLogger::initialize(dirname(__DIR__, 3) . '/private/logs/logs/error.log');
 
 // Configuración y conexión
-require_once dirname(__DIR__, 3) . '/config/config.php';
+require_once dirname(__DIR__, 3) . '/private/config/config.php';
 $baseDir = BASE_DIR;
 include_once $baseDir . "/config/datos_base.php";
+
+// Leer JSON del body
+$data = json_decode(file_get_contents("php://input"), true);
+// $json = '{"ruta":"/update_usuario","idusuario":"6","nombre":"LUIS GIMENEZ PRIETO MACHADO CASTELLANOS","area":"Factum","activo":"s","puesto":"Programador Consultor","mail":"luis@factumconsultora.com","verificador":"","cod_verificador":"","idtipousuario":"7","idLTYcliente":"1","dbName":"mc1000"}';
+// $data = json_decode($json, true);
+$dbname =  $data['dbName'];
 
 $mysqli = new mysqli($host, $user, $password, $dbname, $port);
 if ($mysqli->connect_error) {
@@ -18,8 +24,7 @@ if ($mysqli->connect_error) {
 }
 mysqli_set_charset($mysqli, "utf8mb4");
 
-// Leer JSON del body
-$data = json_decode(file_get_contents("php://input"), true);
+
 
 // Validar campos requeridos
 $camposRequeridos = ['idusuario', 'nombre', 'area', 'activo', 'puesto', 'mail', 'verificador', 'idtipousuario', 'idLTYcliente'];
@@ -39,24 +44,22 @@ $activo = $mysqli->real_escape_string(trim($data['activo']));
 $puesto = $mysqli->real_escape_string(trim($data['puesto']));
 $mail = $mysqli->real_escape_string(trim($data['mail']));
 $verificador = (int) $data['verificador'];
-$cod_verificador = isset($data['cod_verificador']) && trim($data['cod_verificador']) !== ""
-  ? "'" . $mysqli->real_escape_string(trim($data['cod_verificador'])) . "'"
-  : "NULL";
+// $cod_verificador = isset($data['cod_verificador']) && trim($data['cod_verificador']) !== ""
+//   ? "'" . $mysqli->real_escape_string(trim($data['cod_verificador'])) . "'"
+//   : "NULL";
 $idtipousuario = (int) $data['idtipousuario'];
-$idLTYcliente = (int) $data['idLTYcliente'];
+// $idLTYcliente = (int) $data['idLTYcliente'];
 
 // Ejecutar UPDATE
 $sql = "
-  UPDATE usuario SET
+  UPDATE usuarios SET
     nombre = '$nombre',
     area = '$area',
     activo = '$activo',
     puesto = '$puesto',
     mail = '$mail',
     verificador = $verificador,
-    cod_verificador = $cod_verificador,
-    idtipousuario = $idtipousuario,
-    idLTYcliente = $idLTYcliente
+    idtipousuario = $idtipousuario
   WHERE idusuario = $idusuario
 ";
 
